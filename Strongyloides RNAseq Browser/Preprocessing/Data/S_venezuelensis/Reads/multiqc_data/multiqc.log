@@ -1,0 +1,714 @@
+[2020-09-11 14:28:56,155] multiqc                                            [DEBUG  ]  No MultiQC config found: /Users/astrasb/.pyenv/versions/3.7.3/lib/python3.7/site-packages/multiqc_config.yaml
+[2020-09-11 14:28:56,155] multiqc                                            [DEBUG  ]  No MultiQC config found: /Users/astrasb/.multiqc_config.yaml
+[2020-09-11 14:28:56,173] multiqc                                            [DEBUG  ]  No MultiQC config found: multiqc_config.yaml
+[2020-09-11 14:28:56,174] multiqc                                            [DEBUG  ]  Command used: /Users/astrasb/.pyenv/versions/3.7.3/bin/multiqc -d .
+[2020-09-11 14:28:57,478] multiqc                                            [DEBUG  ]  Latest MultiQC version is v1.9
+[2020-09-11 14:28:57,478] multiqc                                            [INFO   ]  This is MultiQC v1.9
+[2020-09-11 14:28:57,478] multiqc                                            [DEBUG  ]  Command     : /Users/astrasb/.pyenv/versions/3.7.3/bin/multiqc -d .
+[2020-09-11 14:28:57,478] multiqc                                            [DEBUG  ]  Working dir : /Volumes/Seagate Backup Plus Drive/Astra/S venezuelensis RNAseq
+[2020-09-11 14:28:57,478] multiqc                                            [INFO   ]  Template    : default
+[2020-09-11 14:28:57,478] multiqc                                            [DEBUG  ]  Running Python 3.7.3 (default, Jun 19 2020, 11:34:17)  [Clang 11.0.3 (clang-1103.0.32.29)]
+[2020-09-11 14:28:57,479] multiqc                                            [INFO   ]  Prepending directory to sample names
+[2020-09-11 14:28:57,479] multiqc                                            [INFO   ]  Searching   : /Volumes/Seagate Backup Plus Drive/Astra/S venezuelensis RNAseq
+[2020-09-11 14:28:57,479] multiqc                                            [DEBUG  ]  Analysing modules: custom_content, conpair, peddy, somalier, methylQA, mosdepth, phantompeakqualtools, qualimap, preseq, quast, qorts, rna_seqc, rockhopper, rsem, rseqc, busco, goleft_indexcov, disambiguate, supernova, deeptools, sargasso, verifybamid, mirtrace, happy, mirtop, homer, macs2, theta2, snpeff, gatk, htseq, bcftools, featureCounts, fgbio, dragen, dedup, damageprofiler, biobambam2, mtnucratio, picard, prokka, samblaster, samtools, sexdeterrmine, bamtools, jellyfish, vcftools, longranger, stacks, varscan2, bbmap, bismark, biscuit, hicexplorer, hicup, hicpro, salmon, kallisto, slamdunk, star, hisat2, tophat, bowtie2, bowtie1, snpsplit, kat, leehom, adapterRemoval, clipandmerge, cutadapt, flexbar, kaiju, kraken, malt, trimmomatic, sickle, skewer, sortmerna, biobloomtools, fastq_screen, afterqc, fastp, fastqc, pycoqc, minionqc, multivcfanalyzer, clusterflow, bcl2fastq, interop, ivar, flash, seqyclean
+[2020-09-11 14:28:57,481] multiqc                                            [DEBUG  ]  Using temporary directory for creating report: /var/folders/xg/4ps290nj7qgb4xc5p53nkssc0000gn/T/tmpqu8tf5q7
+[2020-09-11 14:28:58,306] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029441_2.fastq.gz
+[2020-09-11 14:28:58,415] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,418] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029441_2_fastqc.html
+[2020-09-11 14:28:58,495] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029442_1.fastq.gz
+[2020-09-11 14:28:58,555] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,558] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029442_1_fastqc.html
+[2020-09-11 14:28:58,598] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029442_2.fastq.gz
+[2020-09-11 14:28:58,657] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,660] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029442_2_fastqc.html
+[2020-09-11 14:28:58,744] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029443_1.fastq.gz
+[2020-09-11 14:28:58,807] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,809] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,809] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,810] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,810] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,810] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,810] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029443_1_fastqc.html
+[2020-09-11 14:28:58,852] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029443_2.fastq.gz
+[2020-09-11 14:28:58,898] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,900] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,900] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,900] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,900] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,900] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:58,901] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029443_2_fastqc.html
+[2020-09-11 14:28:59,009] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029444_1.fastq.gz
+[2020-09-11 14:28:59,242] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,244] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029444_1_fastqc.html
+[2020-09-11 14:28:59,311] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106357_1.fastq.gz
+[2020-09-11 14:28:59,358] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,360] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106357_1_fastqc.html
+[2020-09-11 14:28:59,402] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106357_2.fastq.gz
+[2020-09-11 14:28:59,415] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,417] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106357_2_fastqc.html
+[2020-09-11 14:28:59,456] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: readMapping_svenez.sh
+[2020-09-11 14:28:59,457] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: readMapping_svenez.sh
+[2020-09-11 14:28:59,461] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: strongyloides_venezuelensis.PRJEB530.WBPS14.mRNA_transcripts.fa
+[2020-09-11 14:28:59,463] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029433_2.fastq.gz
+[2020-09-11 14:28:59,642] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,644] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,645] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,645] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,645] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,645] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,645] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029433_2_fastqc.html
+[2020-09-11 14:28:59,712] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029434_1.fastq.gz
+[2020-09-11 14:28:59,757] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,759] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029434_1_fastqc.html
+[2020-09-11 14:28:59,801] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029434_2.fastq.gz
+[2020-09-11 14:28:59,817] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,819] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029434_2_fastqc.html
+[2020-09-11 14:28:59,871] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029435_1.fastq.gz
+[2020-09-11 14:28:59,912] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,915] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029435_1_fastqc.html
+[2020-09-11 14:28:59,955] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029435_2.fastq.gz
+[2020-09-11 14:29:00,113] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,115] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029435_2_fastqc.html
+[2020-09-11 14:29:00,215] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,217] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029433_1_fastqc.html
+[2020-09-11 14:29:00,256] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029436_1.fastq.gz
+[2020-09-11 14:29:00,298] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,301] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029438_2_fastqc.html
+[2020-09-11 14:29:00,344] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029444_2.fastq.gz
+[2020-09-11 14:29:00,365] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,367] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106346_2_fastqc.html
+[2020-09-11 14:29:00,404] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106352_1.fastq.gz
+[2020-09-11 14:29:00,453] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106354_2_fastqc.html
+[2020-09-11 14:29:00,544] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,547] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106356_2_fastqc.html
+[2020-09-11 14:29:00,586] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106349_2.fastq.gz
+[2020-09-11 14:29:00,608] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,610] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106349_2_fastqc.html
+[2020-09-11 14:29:00,656] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106350_1.fastq.gz
+[2020-09-11 14:29:00,703] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,705] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,705] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,706] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,706] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106350_1_fastqc.html
+[2020-09-11 14:29:00,744] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106350_2.fastq.gz
+[2020-09-11 14:29:00,759] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,760] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,761] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106350_2_fastqc.html
+[2020-09-11 14:29:00,815] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106351_1.fastq.gz
+[2020-09-11 14:29:00,866] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,869] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106351_1_fastqc.html
+[2020-09-11 14:29:00,906] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106351_2.fastq.gz
+[2020-09-11 14:29:00,940] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,942] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,942] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,943] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,943] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,943] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:00,943] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106351_2_fastqc.html
+[2020-09-11 14:29:01,013] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029282_1.fastq.gz
+[2020-09-11 14:29:01,053] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,055] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,055] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,056] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029282_1_fastqc.html
+[2020-09-11 14:29:01,096] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029282_2.fastq.gz
+[2020-09-11 14:29:01,112] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,114] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029282_2_fastqc.html
+[2020-09-11 14:29:01,168] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029433_1.fastq.gz
+[2020-09-11 14:29:01,206] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,208] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029436_1_fastqc.html
+[2020-09-11 14:29:01,249] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029436_2.fastq.gz
+[2020-09-11 14:29:01,263] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,265] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029436_2_fastqc.html
+[2020-09-11 14:29:01,312] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029437_1.fastq.gz
+[2020-09-11 14:29:01,346] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,349] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029437_1_fastqc.html
+[2020-09-11 14:29:01,387] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029437_2.fastq.gz
+[2020-09-11 14:29:01,410] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,412] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029437_2_fastqc.html
+[2020-09-11 14:29:01,476] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029438_1.fastq.gz
+[2020-09-11 14:29:01,514] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,516] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029438_1_fastqc.html
+[2020-09-11 14:29:01,556] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029438_2.fastq.gz
+[2020-09-11 14:29:01,611] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,613] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029444_2_fastqc.html
+[2020-09-11 14:29:01,694] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029445_1.fastq.gz
+[2020-09-11 14:29:01,711] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,713] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029445_1_fastqc.html
+[2020-09-11 14:29:01,753] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029445_2.fastq.gz
+[2020-09-11 14:29:01,791] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,793] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029445_2_fastqc.html
+[2020-09-11 14:29:01,850] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106346_1.fastq.gz
+[2020-09-11 14:29:01,895] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,897] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,897] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,898] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,898] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,898] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,898] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106346_1_fastqc.html
+[2020-09-11 14:29:01,936] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106346_2.fastq.gz
+[2020-09-11 14:29:01,946] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029439_1.fastq.gz
+[2020-09-11 14:29:01,995] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:01,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029439_1_fastqc.html
+[2020-09-11 14:29:02,038] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029439_2.fastq.gz
+[2020-09-11 14:29:02,066] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,068] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,068] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,069] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,069] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,069] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,069] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029439_2_fastqc.html
+[2020-09-11 14:29:02,120] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029440_1.fastq.gz
+[2020-09-11 14:29:02,154] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,156] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029440_1_fastqc.html
+[2020-09-11 14:29:02,198] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029440_2.fastq.gz
+[2020-09-11 14:29:02,223] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,225] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029440_2_fastqc.html
+[2020-09-11 14:29:02,317] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR029441_1.fastq.gz
+[2020-09-11 14:29:02,355] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,357] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR029441_1_fastqc.html
+[2020-09-11 14:29:02,413] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,414] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,415] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,415] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,415] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,415] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,415] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106352_1_fastqc.html
+[2020-09-11 14:29:02,451] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106352_2.fastq.gz
+[2020-09-11 14:29:02,465] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,467] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106352_2_fastqc.html
+[2020-09-11 14:29:02,512] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106353_1.fastq.gz
+[2020-09-11 14:29:02,549] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,551] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106353_1_fastqc.html
+[2020-09-11 14:29:02,589] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106353_2.fastq.gz
+[2020-09-11 14:29:02,604] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,606] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,606] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,606] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,606] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,606] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,607] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106353_2_fastqc.html
+[2020-09-11 14:29:02,650] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106354_1.fastq.gz
+[2020-09-11 14:29:02,669] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,671] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106354_1_fastqc.html
+[2020-09-11 14:29:02,709] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106354_2.fastq.gz
+[2020-09-11 14:29:02,719] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106347_1.fastq.gz
+[2020-09-11 14:29:02,759] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,761] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106347_1_fastqc.html
+[2020-09-11 14:29:02,799] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106347_2.fastq.gz
+[2020-09-11 14:29:02,819] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,821] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106347_2_fastqc.html
+[2020-09-11 14:29:02,867] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106348_1.fastq.gz
+[2020-09-11 14:29:02,901] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,904] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106348_1_fastqc.html
+[2020-09-11 14:29:02,943] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106348_2.fastq.gz
+[2020-09-11 14:29:02,959] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:02,961] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106348_2_fastqc.html
+[2020-09-11 14:29:03,005] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106349_1.fastq.gz
+[2020-09-11 14:29:03,054] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,057] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106349_1_fastqc.html
+[2020-09-11 14:29:03,108] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106355_1.fastq.gz
+[2020-09-11 14:29:03,144] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,146] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,146] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,147] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,147] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,147] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,147] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106355_1_fastqc.html
+[2020-09-11 14:29:03,187] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106355_2.fastq.gz
+[2020-09-11 14:29:03,204] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,206] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,206] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,206] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,206] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,206] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,207] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106355_2_fastqc.html
+[2020-09-11 14:29:03,252] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106356_1.fastq.gz
+[2020-09-11 14:29:03,267] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,269] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: DRR106356_1_fastqc.html
+[2020-09-11 14:29:03,306] multiqc                                            [DEBUG  ]  Ignoring file as matched an ignore pattern: DRR106356_2.fastq.gz
+[2020-09-11 14:29:03,560] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:03,562] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,090] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,091] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,091] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,091] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,091] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,091] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,092] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,600] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:04,602] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,090] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,092] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,092] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,092] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,092] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,093] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,093] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,597] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:05,599] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,051] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,053] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,510] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,511] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,512] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,512] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,512] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,512] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,512] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,971] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,973] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,973] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,973] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,973] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,974] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:06,974] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,450] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,452] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,452] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,452] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,452] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,453] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,453] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,910] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,912] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,912] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,912] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,913] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,913] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:07,913] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,362] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,364] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,803] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,805] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,805] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,805] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,805] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,805] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:08,806] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,243] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,245] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,712] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:09,714] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,220] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,222] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,703] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:10,705] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,163] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,165] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,666] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:11,668] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,165] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,167] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,647] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:12,649] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,114] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,116] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,605] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:13,607] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,053] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,055] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,517] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,519] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,996] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:14,998] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,453] multiqc                                            [DEBUG  ]  File ignored by hicexplorer because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by longranger/invocation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by rockhopper because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/bam_stat because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/junction_annotation because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/read_distribution because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:15,455] multiqc                                            [DEBUG  ]  File ignored by rseqc/infer_experiment because it exceeded search pattern filesize limit: abundance.tsv
+[2020-09-11 14:29:16,956] multiqc.plots.bargraph                             [DEBUG  ]  Using matplotlib version 3.2.2
+[2020-09-11 14:29:16,958] multiqc.plots.linegraph                            [DEBUG  ]  Using matplotlib version 3.2.2
+[2020-09-11 14:29:16,961] multiqc                                            [DEBUG  ]  No samples found: custom_content
+[2020-09-11 14:29:16,994] multiqc                                            [DEBUG  ]  No samples found: conpair
+[2020-09-11 14:29:17,002] multiqc                                            [DEBUG  ]  No samples found: peddy
+[2020-09-11 14:29:17,037] multiqc                                            [DEBUG  ]  No samples found: somalier
+[2020-09-11 14:29:17,055] multiqc                                            [DEBUG  ]  No samples found: methylQA
+[2020-09-11 14:29:17,097] multiqc                                            [DEBUG  ]  No samples found: mosdepth
+[2020-09-11 14:29:17,116] multiqc                                            [DEBUG  ]  No samples found: phantompeakqualtools
+[2020-09-11 14:29:17,136] multiqc                                            [DEBUG  ]  No samples found: qualimap
+[2020-09-11 14:29:17,157] multiqc                                            [DEBUG  ]  No samples found: preseq
+[2020-09-11 14:29:17,188] multiqc                                            [DEBUG  ]  No samples found: quast
+[2020-09-11 14:29:17,206] multiqc                                            [DEBUG  ]  No samples found: qorts
+[2020-09-11 14:29:17,236] multiqc                                            [DEBUG  ]  No samples found: rna_seqc
+[2020-09-11 14:29:17,249] multiqc                                            [DEBUG  ]  No samples found: rockhopper
+[2020-09-11 14:29:17,256] multiqc                                            [DEBUG  ]  No samples found: rsem
+[2020-09-11 14:29:17,313] multiqc                                            [DEBUG  ]  No samples found: rseqc
+[2020-09-11 14:29:17,338] multiqc                                            [DEBUG  ]  No samples found: busco
+[2020-09-11 14:29:17,353] multiqc                                            [DEBUG  ]  No samples found: goleft_indexcov
+[2020-09-11 14:29:17,360] multiqc                                            [DEBUG  ]  No samples found: disambiguate
+[2020-09-11 14:29:17,367] multiqc                                            [DEBUG  ]  No samples found: supernova
+[2020-09-11 14:29:17,498] multiqc                                            [DEBUG  ]  No samples found: deeptools
+[2020-09-11 14:29:17,509] multiqc                                            [DEBUG  ]  No samples found: sargasso
+[2020-09-11 14:29:17,516] multiqc                                            [DEBUG  ]  No samples found: verifybamid
+[2020-09-11 14:29:17,539] multiqc                                            [DEBUG  ]  No samples found: mirtrace
+[2020-09-11 14:29:17,551] multiqc                                            [DEBUG  ]  No samples found: happy
+[2020-09-11 14:29:17,587] multiqc                                            [DEBUG  ]  No samples found: mirtop
+[2020-09-11 14:29:17,604] multiqc                                            [DEBUG  ]  No samples found: homer
+[2020-09-11 14:29:17,612] multiqc                                            [DEBUG  ]  No samples found: macs2
+[2020-09-11 14:29:17,638] multiqc                                            [DEBUG  ]  No samples found: theta2
+[2020-09-11 14:29:17,647] multiqc                                            [DEBUG  ]  No samples found: snpeff
+[2020-09-11 14:29:17,662] multiqc                                            [DEBUG  ]  No samples found: gatk
+[2020-09-11 14:29:17,688] multiqc                                            [DEBUG  ]  No samples found: htseq
+[2020-09-11 14:29:17,709] multiqc                                            [DEBUG  ]  No samples found: bcftools
+[2020-09-11 14:29:17,715] multiqc                                            [DEBUG  ]  No samples found: featureCounts
+[2020-09-11 14:29:17,743] multiqc                                            [DEBUG  ]  No samples found: fgbio
+[2020-09-11 14:29:17,800] multiqc                                            [DEBUG  ]  No samples found: dragen
+[2020-09-11 14:29:17,811] multiqc                                            [DEBUG  ]  No samples found: dedup
+[2020-09-11 14:29:17,839] multiqc                                            [DEBUG  ]  No samples found: damageprofiler
+[2020-09-11 14:29:17,906] multiqc                                            [DEBUG  ]  No samples found: biobambam2
+[2020-09-11 14:29:17,917] multiqc                                            [DEBUG  ]  No samples found: mtnucratio
+[2020-09-11 14:29:17,920] multiqc                                            [DEBUG  ]  No samples found: picard
+[2020-09-11 14:29:17,938] multiqc                                            [DEBUG  ]  No samples found: prokka
+[2020-09-11 14:29:17,953] multiqc                                            [DEBUG  ]  No samples found: samblaster
+[2020-09-11 14:29:17,997] multiqc                                            [DEBUG  ]  No samples found: samtools
+[2020-09-11 14:29:18,010] multiqc                                            [DEBUG  ]  No samples found: sexdeterrmine
+[2020-09-11 14:29:18,050] multiqc                                            [DEBUG  ]  No samples found: bamtools
+[2020-09-11 14:29:18,057] multiqc                                            [DEBUG  ]  No samples found: jellyfish
+[2020-09-11 14:29:18,097] multiqc                                            [DEBUG  ]  No samples found: vcftools
+[2020-09-11 14:29:18,104] multiqc                                            [DEBUG  ]  No samples found: longranger
+[2020-09-11 14:29:18,109] multiqc                                            [DEBUG  ]  No samples found: stacks
+[2020-09-11 14:29:18,115] multiqc                                            [DEBUG  ]  No samples found: varscan2
+[2020-09-11 14:29:18,167] multiqc                                            [DEBUG  ]  No samples found: bbmap
+[2020-09-11 14:29:18,190] multiqc                                            [DEBUG  ]  No samples found: bismark
+[2020-09-11 14:29:18,197] multiqc                                            [DEBUG  ]  No samples found: biscuit
+[2020-09-11 14:29:18,209] multiqc                                            [DEBUG  ]  No samples found: hicexplorer
+[2020-09-11 14:29:18,237] multiqc                                            [DEBUG  ]  No samples found: hicup
+[2020-09-11 14:29:18,245] multiqc                                            [DEBUG  ]  No samples found: hicpro
+[2020-09-11 14:29:18,255] multiqc                                            [DEBUG  ]  No samples found: salmon
+[2020-09-11 14:29:18,295] multiqc.modules.kallisto.kallisto                  [INFO   ]  Found 26 reports
+[2020-09-11 14:29:18,303] multiqc                                            [DEBUG  ]  No samples found: slamdunk
+[2020-09-11 14:29:18,313] multiqc                                            [DEBUG  ]  No samples found: star
+[2020-09-11 14:29:18,338] multiqc                                            [DEBUG  ]  No samples found: hisat2
+[2020-09-11 14:29:18,350] multiqc                                            [DEBUG  ]  No samples found: tophat
+[2020-09-11 14:29:18,357] multiqc                                            [DEBUG  ]  No samples found: bowtie2
+[2020-09-11 14:29:18,365] multiqc                                            [DEBUG  ]  No samples found: bowtie1
+[2020-09-11 14:29:18,389] multiqc                                            [DEBUG  ]  No samples found: snpsplit
+[2020-09-11 14:29:18,402] multiqc                                            [DEBUG  ]  No samples found: kat
+[2020-09-11 14:29:18,416] multiqc                                            [DEBUG  ]  No samples found: leehom
+[2020-09-11 14:29:18,439] multiqc                                            [DEBUG  ]  No samples found: adapterRemoval
+[2020-09-11 14:29:18,451] multiqc                                            [DEBUG  ]  No samples found: clipandmerge
+[2020-09-11 14:29:18,487] multiqc                                            [DEBUG  ]  No samples found: cutadapt
+[2020-09-11 14:29:18,508] multiqc                                            [DEBUG  ]  No samples found: flexbar
+[2020-09-11 14:29:18,543] multiqc                                            [DEBUG  ]  No samples found: kaiju
+[2020-09-11 14:29:18,563] multiqc                                            [DEBUG  ]  No samples found: kraken
+[2020-09-11 14:29:18,594] multiqc                                            [DEBUG  ]  No samples found: malt
+[2020-09-11 14:29:18,615] multiqc                                            [DEBUG  ]  No samples found: trimmomatic
+[2020-09-11 14:29:18,644] multiqc                                            [DEBUG  ]  No samples found: sickle
+[2020-09-11 14:29:18,661] multiqc                                            [DEBUG  ]  No samples found: skewer
+[2020-09-11 14:29:18,684] multiqc                                            [DEBUG  ]  No samples found: sortmerna
+[2020-09-11 14:29:18,693] multiqc                                            [DEBUG  ]  No samples found: biobloomtools
+[2020-09-11 14:29:18,701] multiqc                                            [DEBUG  ]  No samples found: fastq_screen
+[2020-09-11 14:29:18,710] multiqc                                            [DEBUG  ]  No samples found: afterqc
+[2020-09-11 14:29:18,715] multiqc                                            [DEBUG  ]  No samples found: fastp
+[2020-09-11 14:29:21,639] multiqc.modules.fastqc.fastqc                      [INFO   ]  Found 52 reports
+[2020-09-11 14:29:22,415] multiqc                                            [DEBUG  ]  No samples found: pycoqc
+[2020-09-11 14:29:22,439] multiqc                                            [DEBUG  ]  No samples found: minionqc
+[2020-09-11 14:29:22,446] multiqc                                            [DEBUG  ]  No samples found: multivcfanalyzer
+[2020-09-11 14:29:22,454] multiqc                                            [DEBUG  ]  No samples found: clusterflow
+[2020-09-11 14:29:22,462] multiqc                                            [DEBUG  ]  No samples found: bcl2fastq
+[2020-09-11 14:29:22,486] multiqc                                            [DEBUG  ]  No samples found: interop
+[2020-09-11 14:29:22,494] multiqc                                            [DEBUG  ]  No samples found: ivar
+[2020-09-11 14:29:22,500] multiqc                                            [DEBUG  ]  No samples found: flash
+[2020-09-11 14:29:22,507] multiqc                                            [DEBUG  ]  No samples found: seqyclean
+[2020-09-11 14:29:22,577] multiqc                                            [INFO   ]  Compressing plot data
+[2020-09-11 14:29:23,256] multiqc                                            [INFO   ]  Report      : multiqc_report.html
+[2020-09-11 14:29:23,256] multiqc                                            [INFO   ]  Data        : multiqc_data
+[2020-09-11 14:29:23,256] multiqc                                            [DEBUG  ]  Moving data file from '/var/folders/xg/4ps290nj7qgb4xc5p53nkssc0000gn/T/tmpqu8tf5q7/multiqc_data' to '/Volumes/Seagate Backup Plus Drive/Astra/S venezuelensis RNAseq/multiqc_data'
+[2020-09-11 14:29:24,249] multiqc                                            [INFO   ]  MultiQC complete
