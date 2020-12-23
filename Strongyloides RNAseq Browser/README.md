@@ -47,4 +47,3 @@ This project is licensed under the MIT License.
 
 ## Authors  
 * [Astra Bryant, PhD](https://github.com/astrasb)
-* [Stephanie DeMarco, PhD](https://github.com/sfdemarco)
