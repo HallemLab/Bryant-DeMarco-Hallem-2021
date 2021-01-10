@@ -742,8 +742,15 @@ cpm.merged <- rbind(cpm.all %>% dplyr::mutate(condition = "Both"),
     dplyr::mutate(condition = as_factor(condition))
 
 res.aov2<- aov(expression ~ condition * life_stage, data = cpm.merged)
-#summary(res.aov2)
+options(contrasts = c("contr.sum", "contr.poly"))
 Anova(res.aov2, type = "III")
+res.aov3<-TukeyHSD(res.aov2, "condition:life_stage")
+as_tibble(res.aov3$`condition:life_stage`, rownames = "comparison") %>%
+  separate(col = comparison, into = c("comp1", "LS1", "comp2", "LS2")) %>%
+  dplyr::filter(LS1 == LS2) %>%
+  unite(temp1, comp1, LS1, sep = ":")%>%
+  unite(temp2, comp2, LS2, sep = ":")%>%
+  unite(comparison, temp1, temp2, sep = "-")
 ```
 
 <!-- # Cluster DEGs into functional modules --- -->
