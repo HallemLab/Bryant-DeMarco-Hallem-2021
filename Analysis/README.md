@@ -1,5 +1,5 @@
 # Offline Analysis Overview  
-This folder contains RMarkdown files for each species, in which we present example analyses. These analyses include hierarchical clustering and principal component analyses of species samples, limma-voom differential expression (example result echoing analyses completed by the Shiny App), benchmarking of differential expression analyses against previously published datasets, and an example gene set enrichment analysis. Rmd files are knitted into html files, and both PCA and Benchmarking plots are saved in a Plot subfolder in the Outputs folder.  
+RMarkdown files for each species (see Scripts folder) contain example analyses of previously published bulk RNA-seq datasets. These analyses include hierarchical clustering and principal component analyses of species samples, limma-voom differential expression (example result echoing analyses completed by the Shiny App), benchmarking of differential expression analyses against previously published datasets, and an example gene set enrichment analysis. Rmd files are knitted into html files, and both PCA and Benchmarking plots are saved in a Plot subfolder in the Outputs folder.  
 
 See sections below for descriptions of the analyses included in the .rmd files.  
 
