@@ -147,9 +147,9 @@ pca.res.df <- as_tibble(pca.res$x)
 p3<-ggplot(pca.res.df) +
   aes(x=PC1, y=PC2, label=targets$group, 
       fill = targets$group,
-      color = targets$group
+      color = targets$group,
   ) +
-  geom_point(size=4, shape= 21, color = "black", alpha = 0.5) +
+  geom_point(size=5, shape = 21, color = "black") +
   scale_fill_brewer(palette = "Set2") +
   scale_color_brewer(palette = "Set2", guide = FALSE) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
@@ -698,13 +698,13 @@ cpm.BrowserOnly <- subset(log2.cpm.filtered.norm,
                                 times = nrow(plotting.BrowserOnly)) %>%
                    as_factor())
 
-ggplot(cpm.all) +
+p.cpm_all <- ggplot(cpm.all) +
     aes(x=samples, y=expression, fill=life_stage) +
     geom_violin(data = cpm.BrowserOnly,
                 aes(x=samples, y=expression, fill=life_stage),
                 trim = FALSE, show.legend = T, 
-                fill = "grey", alpha = 0.7) +
-    geom_violin(trim = FALSE, show.legend = T, alpha = 0.7) +
+                fill = "grey") +
+    geom_violin(trim = FALSE, show.legend = T) +
     stat_summary(data = cpm.BrowserOnly,
                  fun = "median", 
                  geom = "point", 
@@ -726,6 +726,15 @@ ggplot(cpm.all) +
     scale_fill_brewer(palette = "Dark2") +
     coord_flip()
 
+suppressMessages(ggsave("Ss_CountComparisons.pdf",
+                        plot = p.cpm_all,
+                        device = "pdf",
+                        height = 5,
+                        width = 6,
+                        path = output.path,
+                        useDingbats=FALSE))
+
+p.cpm_all
 ```
 
 #### 2-way ANOVA of expression
@@ -863,7 +872,7 @@ diffGenes.heatmap <- heatmap.2(diffGenes.thresh,
 This code performs GSEA using the clusterProfiler library. Ability to do this depends on the availability of gene sets. Major databases (e.g. msigdb don't seem to have *Strongyloides* information. They do have *C. elegans* gene sets, but I'm not convinced the homology information is good enough for the comparison to be unbiased/meaningful. In Hunt et al 2016, there is an Ensembl Compara protein family set; we will use this as the basis for our gene set libraries.  
 Note that this uses specific transcript information, which I throw out (e.g. SSTP_0001137400.2 is recoded as SSTP_0001137400).
 
-Given a priori defined set of gene S (e.g., genes shareing the same DO category), the goal of GSEA is to determine whether the members of S are randomly distributed throughout the ranked gene list (L) or primarily found at the top or bottom.  
+Given a priori defined set of gene S (e.g., genes sharing the same DO category), the goal of GSEA is to determine whether the members of S are randomly distributed throughout the ranked gene list (L) or primarily found at the top or bottom.  
 There are three key elements of the GSEA method:  
 **Calculation of an Enrichment Score.**  
 The enrichment score (ES) represent the degree to which a set S is over-represented at the top or bottom of the ranked list L. The score is calculated by walking down the list L, increasing a running-sum statistic when we encounter a gene in S and decreasing when it is not. The magnitude of the increment depends on the gene statistics (e.g., correlation of the gene with phenotype). The ES is the maximum deviation from zero encountered in the random walk; it corresponds to a weighted Kolmogorov-Smirnov-like statistic (Subramanian et al. 2005).  
@@ -1081,11 +1090,12 @@ ggplot(myGSEA.df, aes(x=life_stage, y=ID)) +
         aspect.ratio = 3/1)
 
 ```
+
 ## GSEA of PC Loadings
 This section uses GSEA to ask whether there is functional enrichment in the genes that contribute the most of PC1/PC2 identity.  
 
 ### PC1 Loadings
-```{r GSEA.PC1.Loadings}
+```{r GSEA.PC1.Loadings, message=FALSE}
 # Generate rank ordered list of genes ----
 # Use pca.res$rotation to select genes influencing PC1-6 ----
 myscores.df <- pca.res$rotation[,1:6] %>% 
@@ -1127,7 +1137,7 @@ PC1.GSEA.tbl<-as_tibble(PC1.GSEA.res@result) %>%
 ```
 
 ### PC2 Loadings
-```{r GSEA.PC2.Loadings}
+```{r GSEA.PC2.Loadings, message=FALSE}
 # Generate rank ordered list of genes ----
 Top10.GSEA.sub <- myscores.df %>%
   dplyr::filter(PC == "PC2") %>%
@@ -1160,7 +1170,7 @@ PC2.GSEA.tbl<-as_tibble(PC2.GSEA.res@result) %>%
 ```
 
 ### Plot of PC1/PC2
-```{r GSEA.PC.plot}
+```{r GSEA.PC.plot, message=FALSE}
 
 PC.GSEA.df <- full_join(PC1.GSEA.df,PC2.GSEA.df)
 
