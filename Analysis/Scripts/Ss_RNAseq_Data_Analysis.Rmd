@@ -148,15 +148,24 @@ p3<-ggplot(pca.res.df) +
   aes(x=PC1, y=PC2, label=targets$group, 
       fill = targets$group,
       color = targets$group,
+      shape = targets$group
   ) +
-  geom_point(size=5, shape = 21, color = "black") +
-  scale_fill_brewer(palette = "Set2") +
-  scale_color_brewer(palette = "Set2", guide = FALSE) +
+  geom_point(size=4,  color = "black") +
+  scale_colour_manual(values = 
+                      c("#68C3A6", "#8DA0CA", "#A69CCC",
+                      "#E38CBB", "#A6D056", "#FED82F",
+                      "#E4C494"),
+                    aesthetics = c("colour", "fill")) +
+  scale_shape_manual(values = 
+                       c(21, 21, 22,
+                         23, 21, 22,
+                         23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
   labs(title="Principal Components Analysis of S. stercoralis RNAseq Samples",
        sub = "Note: analysis is blind to life stage identity.",
-       fill = "Life Stage") +
+       fill = "Life Stage",
+       shape = "Life Stage") +
   scale_x_continuous(expand = c(.3, .3)) +
   scale_y_continuous(expand = c(.3, .3)) +
   coord_fixed() +
@@ -169,7 +178,8 @@ suppressMessages(ggsave("Ss_Multivariate_Plots_PCA.pdf",
                         device = "pdf",
                         height = 4,
                         #width = 7,
-                        path = output.path))
+                        path = output.path,
+                        useDingbats=FALSE))
 
 ```
 
@@ -206,8 +216,11 @@ names(PC.labs) <- c("PC1", "PC2", "PC3")
 
 p6<-ggplot(pca.pivot) +
   aes(x=sample, y=loadings) + # you could iteratively 'paint' different covariates onto this plot using the 'fill' aes
-  geom_bar(stat="identity", fill = brewer.pal(8,"Set2")[8]) +
-  scale_fill_brewer(palette = "Set2") +
+  geom_bar(stat="identity") +
+  scale_fill_manual(values = 
+                      c("#68C3A6", "#8DA0CA", "#A69CCC",
+                      "#E38CBB", "#A6D056", "#FED82F",
+                      "#E4C494")) +
   facet_wrap(~PC, labeller = labeller(PC = PC.labs)) +
   geom_bar(data = PC1, stat = "identity", aes(fill = group)) +
   geom_bar(data = PC2, stat = "identity", aes(fill = group)) +
@@ -226,7 +239,8 @@ suppressMessages(ggsave("Ss_Multivariate_Plots_Small_Multiples.pdf",
                         device = "pdf",
                         height = 4,
                         width = 8,
-                        path = output.path))
+                        path = output.path,
+                        useDingbats=FALSE))
 
 ```
 
@@ -701,10 +715,14 @@ cpm.BrowserOnly <- subset(log2.cpm.filtered.norm,
 p.cpm_all <- ggplot(cpm.all) +
     aes(x=samples, y=expression, fill=life_stage) +
     geom_violin(data = cpm.BrowserOnly,
-                aes(x=samples, y=expression, fill=life_stage),
+                aes(x=samples, y=expression),
                 trim = FALSE, show.legend = T, 
                 fill = "grey") +
-    geom_violin(trim = FALSE, show.legend = T) +
+    geom_violin(trim = FALSE, show.legend = T, alpha = 0.7) +
+   scale_fill_manual(values = 
+                      c("#68C3A6", "#A69CCC","#8DA0CA",
+                       "#A6D056", "#FED82F",
+                      "#E4C494","#E38CBB" )) +
     stat_summary(data = cpm.BrowserOnly,
                  fun = "median", 
                  geom = "point", 
@@ -721,9 +739,9 @@ p.cpm_all <- ggplot(cpm.all) +
     labs(y="log2 expression", x = "sample",
          title = "S. stercoralis: Log2 Counts per Million (CPM)",
          subtitle="filtered, TMM normalized, \ngrey = genes only in Browser, \ncolors = genes in both Browser and Hunt datasets",
+         fill = "Life Stage",
          caption=paste0("produced on ", Sys.time())) +
     theme_bw() +
-    scale_fill_brewer(palette = "Dark2") +
     coord_flip()
 
 suppressMessages(ggsave("Ss_CountComparisons.pdf",
