@@ -25,7 +25,7 @@ This folder contains an RMarkdown file and cache that tests for differential exp
 ## App Access
 To access a stable deployment of the *Strongyloides* RNAseq Browser Web App, please visit: [asbryant.shinyapps.io/strongyloides_rnaseq_browser/](asbryant.shinyapps.io/strongyloides_rnaseq_browser/)  
 
-To view full source code for the *Strongyloides* RNAseq Browser, please visit the [app repository](https://github.com/astrasb/Strongyloides_RNAseq_Browser). 
+To view full source code for the *Strongyloides* RNAseq Browser, please visit the [app repository](https://github.com/HallemLab/Strongyloides_RNAseq_Browser). 
 
 ## Sources
 * [Shiny](https://shiny.rstudio.com/) - UI framework
