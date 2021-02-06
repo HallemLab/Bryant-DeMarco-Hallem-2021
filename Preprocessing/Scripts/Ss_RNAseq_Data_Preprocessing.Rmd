@@ -1,5 +1,5 @@
 ---
-title: Pre-processing of *Strongyloides stercoralis* bulk RNAseq via an alignment-free
+title: Pre-processing of *Strongyloides stercoralis* bulk RNA-seq via an alignment-free
   analysis pipeline
 output:
   pdf_document:
@@ -10,7 +10,7 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides stercoralis* RNAseq dataset originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854). 
+The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq dataset originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854). 
 
 # Pre-processing Methods Overview  
 Kallisto and custom R scripts were used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. ratti*), and a reference member of the out-group (*S. papillosus*). Annotation information is be saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: raw count data could be saved as a digitial gene expression list if desired (not currently done).  
@@ -372,7 +372,7 @@ p1<-ggplot(myTPM.stats) +
   labs(y="Median", x = "Standard deviation",
        title = "S. stercoralis: Transcripts per million (TPM)",
        subtitle="unfiltered, non-normalized data",
-       caption="S. stercoralis Stoltzfus RNAseq Dataset") +
+       caption="S. stercoralis Stoltzfus RNA-seq Dataset") +
   theme_bw()
 p1
 
@@ -642,7 +642,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(targets$group,
 Finally, we save data and annotations generated in code chunks above. We can separate these saving actions into two groups:
 
 1. Data saved for downstream offline analyses, including the `SsRNAseq_data_preprocessed` file which saves filtered, normalized (but not voom adjusted) log2CPM values, gene annotation information, and sample information.
-2. Files that are required inputs to the *Strongyloides* RNAseq Browser App, including:
+2. Files that are required inputs to the *Strongyloides* RNA-seq Browser App, including:
 
     i) a gene annotation R object (`Ss_geneAnnotations`)
     ii)  the variance-stabilized vDGEList, saved as an R object (`Ss_vDGEList`)

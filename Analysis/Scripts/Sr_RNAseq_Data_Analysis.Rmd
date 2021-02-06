@@ -1,19 +1,22 @@
 ---
-title: Offline Data Analysis of *Strongyloides ratti* bulk RNAseq data
+title: Offline Data Analysis of *Strongyloides ratti* bulk RNA-seq data
 output:
   html_document:
     df_print: paged
     code_folding: hide
     toc: yes
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides ratti* RNAseq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495).
+The goal of this file is to pre-process the *Strongyloides ratti* RNA-seq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495).
 
-### Data Pre-Processing    
+## Data Pre-Processing    
 A description of Kallisto alignment and data filtering/normalization steps can be found in `Sr_RNAseq_Data_Preprocessing.rmd`. 
 
-### Data Analysis   
+## Data Analysis   
 The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605792/), [Phipson *et al* 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5373812/)) is used to conduct pairwise differential gene expression analyses between life stages. An example pairwise comparisons between two life stages is displayed as a volcano plot and interactive DataTable. 
 
 # Code
@@ -162,7 +165,7 @@ p3<-ggplot(pca.res.df) +
                          23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="S. ratti: Principal Components Analysis of RNAseq Samples",
+  labs(title="S. ratti: Principal Components Analysis of RNA-seq Samples",
        sub = "Note: analysis is blind to life stage identity.",
        fill = "Life Stage",
        shape = "Life Stage") +
@@ -643,7 +646,7 @@ Browser.dat <- list.myTopHits.df$`(iL3)-(FLF)` %>%
   dplyr::select(geneID, logFC)
 
 print(paste('Total number of genes in Hunt *et al* 2016 iL3 vs FLF comparison tab:',nrow(Hunt.dat)))
-print(paste('Total number of genes in Str-RNAseq Browser iL3 vs FLF output file:', nrow(Browser.dat))) 
+print(paste('Total number of genes in Str-RNA-seq Browser iL3 vs FLF output file:', nrow(Browser.dat))) 
 
 
 plotting.all <- inner_join(Browser.dat, Hunt.dat, by = "geneID")
@@ -687,7 +690,7 @@ p.benchmark
 ```
 
 ### Expression levels of genes overlapping/non-overlapping in Browser and Hunt Datasets  
-This plot visualizes genes that are found in the Strongyloides RNAseq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
+This plot visualizes genes that are found in the Strongyloides RNA-seq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
 ```{r Benchmarking2, message=FALSE}
 cpm.all<- subset(log2.cpm.filtered.norm, 
                  rownames(log2.cpm.filtered.norm) %in% plotting.all$geneID) %>%
@@ -991,7 +994,7 @@ ensComp <- left_join(ensComp.geneIDs, ensComp.familyIDs, by = "Compara.family.id
 
 rm(ensComp.geneIDs, ensComp.familyIDs)
 
-# Filter out genes that aren't part of our RNAseq dataset
+# Filter out genes that aren't part of our RNA-seq dataset
 genelist <- v.DEGList.filtered.norm$genes %>%
   rownames_to_column(var = "geneID") %>%
   dplyr::select(geneID)
@@ -1209,6 +1212,8 @@ p.PC.gsea
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
 
-
-
+# Appendix II: Session Info
+```{r sessionInfo, message = TRUE}
+sessionInfo()
+```
 

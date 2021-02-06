@@ -1,21 +1,24 @@
 ---
-title: Offline Data Analysis of *Strongyloides papillosus* bulk RNAseq data
+title: Offline Data Analysis of *Strongyloides papillosus* bulk RNA-seq data
 output:
   html_document:
     code_folding: hide
     df_print: paged
     toc: yes
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
 ---
 
 # Introduction
-The goal of this file is to lay out proof-of-concept analyses of the *Strongyloides papillosus* RNAseq dataset originally analyzed by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495).  
+The goal of this file is to lay out proof-of-concept analyses of the *Strongyloides papillosus* RNA-seq dataset originally analyzed by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495).  
 
-This dataset includes samples representing 5 life stages, each with 2 biological replicates: L1/L2s, FLF, FLM, iL3, PF.  
+This dataset includes samples representing 6 life stages, each with 1-2 biological replicates: free-living L1/L2s, free-living females, free-living males, iL3s, parasitic females, parasitic L1/L2s.  
 
-### Data Pre-Processing    
+## Data Pre-Processing    
 A full description of Kallisto alignment and data filtering/normalization steps can be found in `Sp_RNAseq_Data_Preprocessing.rmd`.
 
-### Data Analysis   
+## Data Analysis   
 The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605792/), [Phipson *et al* 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5373812/)) is used to conduct pairwise differential gene expression analyses between life stages. The results of the pairwise comparison is displayed as a volcano plot and interactive DataTable. 
 
 # Code
@@ -162,7 +165,7 @@ p3<-ggplot(pca.res.df) +
                          23, 23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="S. papillosus: Principal Components Analysis of RNAseq Samples",
+  labs(title="S. papillosus: Principal Components Analysis of RNA-seq Samples",
        caption = "Note: analysis is blind to life stage identity.",
        subtitle ="All samples/groups",
        fill = "Life Stage",
@@ -698,7 +701,7 @@ compara.absent <- unique(ensComp.geneIDs$geneID) %>%
   as_tibble_col(column_name = "geneID") %>%
   dplyr::anti_join(diffGenes.df,., by = "geneID") %>%
   dplyr::select(geneID)
-paste('Number of genes exclusive to the RNAseq Gene List: ',nrow(compara.absent))
+paste('Number of genes exclusive to the RNA-seq Gene List: ',nrow(compara.absent))
 
 # How many genes have associated GO terms? ----
 GO.present <- list.myTopHits.df[[yy]]$GO_term %>%
@@ -730,7 +733,7 @@ ensComp <- left_join(ensComp.geneIDs, ensComp.familyIDs, by = "Compara.family.id
 
 rm(ensComp.geneIDs, ensComp.familyIDs)
 
-# Filter out genes that aren't part of our RNAseq dataset
+# Filter out genes that aren't part of our RNA-seq dataset
 genelist <- v.DEGList.filtered.norm$genes %>%
   rownames_to_column(var = "geneID") %>%
   dplyr::select(geneID)
@@ -837,4 +840,8 @@ ggplot(myGSEA.df, aes(x=life_stage, y=ID)) +
 ```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
 ```
 
+# Appendix II: Session Info
+```{r sessionInfo, message = TRUE}
+sessionInfo()
+```
 

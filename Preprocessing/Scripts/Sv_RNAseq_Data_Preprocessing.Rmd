@@ -1,5 +1,5 @@
 ---
-title: Pre-processing of *Strongyloides venezuelensis* bulk RNAseq via an alignment-free
+title: Pre-processing of *Strongyloides venezuelensis* bulk RNA-seq via an alignment-free
   analysis pipeline
 output:
   pdf_document:
@@ -10,19 +10,21 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides venezuelensis* RNAseq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z). 
+The goal of this file is to pre-process the *Strongyloides venezuelensis* RNA-seq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z). 
 
 # Pre-processing Methods Overview 
 Raw reads are aligned to the *S. venezuelensis* reference transcriptome (PRJEB530.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_venezuelensis_PRJEB530/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT.Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. papillosus*), and a reference member of the out-group (*S. stercoralis*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Raw count data is saved as an R object.   
 
-Samples included in  study PRJDB3457 were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). Dividing the experiments based on sequencing instrument produces two batches, both of which contain data from Free-living females and thereotically permit batch correction. However, following limma-based batch correction there were still substantial differences between FLF groups from the two batches. We therefore take the conservative approach of treating these two batches separately.   
-Thus, we define two functional groups for processing and analysis:  
-1. Group FLF_PF: Free-living females and parasitic females (samples DRR106346 - DRR106357; aka SAMD00096905-SAMD00096910). This set includes 3 biological replicates and two technical replicates per life stage.  
-2. Group iL3_extended: Egg, L1, iL3s, activated iL3s (1 and 5 day), iL3_lung, Young_FLF, FLF (samples DRR029282, DRR029433 - DRR029445). This set includes 1 biological replicated and two technical replicates per life stage, except for activated iL3s, which have a single technical replicate at 1 and 5 days.  
+Samples included in study PRJDB3457 were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). Dividing the experiments based on sequencing instrument produces two batches:  
+ 
+1. Batch FLF_PF: Free-living females and parasitic females (samples DRR106346 - DRR106357; aka SAMD00096905-SAMD00096910; SRA Study: DRP002629). This set includes 3 biological replicates and two technical replicates per life stage.  
+2. Batch iL3_extended: Egg, L1, iL3s, activated iL3s (1 and 5 day), iL3_lung, Young_FLF, FLF (samples DRR029282, DRR029433 - DRR029445; SRA Study: ). This set includes 1 biological replicated and two technical replicates per life stage, except for activated iL3s, which have a single technical replicate at 1 and 5 days.  
 
-Raw reads were quantified as counts per million using the EdgeR package, then filtered to remove transcripts with low counts (less than 1 count-per-million in at least 3 samples (Group FLF_PF) or 1 sample (Group iL3_extended)). A list of discarded genes and their expression values across life stages is saved. Non-discarded gene values are normalized using the trimmed mean of M-values method (TMM, [Robinson and Oshlack](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25) ) to permit between-samples comparisons. The mean-variance relationship was modeled using a precision weights approach [Law *et al* 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). This dataset includes technical replicates; after voom modeling, data are condensed by replacing within-experiment technical replicates with their average, using the `limma:avearrays` function.  
+Both bacthes contain data from free-living females, which would thereotically permit batch correction and analysis of all samples. However, following limma-based batch correction there were still substantial differences between free-living female samples from the two batches. We therefore take the conservative approach of treating these two batches separately. 
 
-A variance-stabilized, condensed DGEList object is saved for each analysis group; this file is passed to a Shiny Web App for downstream browsing and on-demand analysis.  
+Raw reads were quantified as counts per million using the EdgeR package, then filtered to remove transcripts with low counts (less than 1 count-per-million in at least 3 samples (Batch FLF_PF) or 1 sample (Batch iL3_extended)). A list of discarded genes and their expression values across life stages is saved. Non-discarded gene values are normalized using the trimmed mean of M-values method (TMM, [Robinson and Oshlack](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25) ) to permit between-samples comparisons. The mean-variance relationship was modeled using a precision weights approach [Law *et al* 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). This dataset includes technical replicates; after voom modeling, data are condensed by replacing within-experiment technical replicates with their average, using the `limma:avearrays` function.  
+
+A variance-stabilized, condensed DGEList object is saved for each batch; this file is passed to a Shiny Web App for downstream browsing and on-demand analysis.  
 
 # Results/Analysis
 Note: Code chunks are collated and echoed at the end of the document in Appendix III.  
@@ -153,7 +155,7 @@ multiqc -d .
 ```
 
 ## Import Kallisto reads into R  
-Imports study design file and Kallisto reads into the R environment. At this stage, we separate the two experimental groups, such that differences in library size and transcript length between the two groups are not corrected when calculating counts from abudnance (we use the lengthScaledTPM option in `tximport`). This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
+Imports study design file and Kallisto reads into the R environment. At this stage, we separate the two experimental batches, such that differences in library size and transcript length between the two batches are not corrected when calculating counts from abudnance (we use the lengthScaledTPM option in `tximport`). This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
 ```{r txImport}
 # load packages ----
 suppressPackageStartupMessages({
@@ -163,7 +165,7 @@ suppressPackageStartupMessages({
   library(biomaRt)
   library(magrittr)
 })
-# read in the study desig for Group FLF_PF ----
+# read in the study desig for Batch FLF_PF ----
 targets <- read_tsv("../Data/S_venezuelensis/Study_Design/Svene_Group_FLF_PF_study_design.txt",
                     na = c("", "NA", "na"))
 # create file paths to the abundance files generated
@@ -227,7 +229,7 @@ suppressPackageStartupMessages({
   library(biomaRt)
   library(magrittr)
 })
-# Load data & study design for group FLF_PF----
+# Load data & study design for Batch FLF_PF----
 load(file = file.path("../Data/S_venezuelensis",
                       "SvRNAseq_Group_FLF_PF_TPM"))
 
@@ -370,7 +372,7 @@ annotations<-dplyr::left_join(Annt.logs, Annt.interpro) %>%
   column_to_rownames(var = "geneID")
 
 # List of S. venezuelensis genes is longer than the number of 
-# genes in the RNAseq dataset. So subset the annotations 
+# genes in the RNA-seq dataset. So subset the annotations 
 # by the geneIDs in Txi_gene
 annotations<-annotations[rownames(annotations) %in% rownames(Txi_gene$counts),]
 
@@ -406,7 +408,7 @@ p1<-ggplot(myTPM.stats) +
   labs(y="Median", x = "Standard deviation",
        title="S. venezuelensis: Transcripts per million (TPM)",
        subtitle="unfiltered, non-normalized data, Group FLF_PF",
-       caption="S. venezuelensis RNAseq Dataset: Group FLF_PF") +
+       caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
   theme_bw()
 p1
 
@@ -479,7 +481,7 @@ p2 <- ggplot(log2.cpm.df.pivot) +
   labs(y="log2 expression", x = "sample",
        title="S. venezuelensis: Log2 Counts per Million (CPM)",
        subtitle="unfiltered, non-normalized, Group FLF_PF",
-       caption="S. venezuelensis RNAseq Dataset: Group FLF_PF") +
+       caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
   theme_bw() +
   coord_flip()
 ```
@@ -523,7 +525,7 @@ p3 <- ggplot(log2.cpm.filtered.df.pivot) +
   labs(y="log2 expression", x = "sample",
        title="S. venezuelensis: Log2 Counts per Million (CPM)",
        subtitle="filtered, non-normalized, Group FLF_PF",
-       caption="S. venezuelensis RNAseq Dataset: Group FLF_PF") +
+       caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
   theme_bw() +
   coord_flip()
 ```
@@ -566,7 +568,7 @@ p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
     labs(y="expression", x = "sample",
          title="S. venezuelensis: Counts per Million (CPM)",
          subtitle="genes excluded by low count filtering step, non-normalized, Group FLF_PF",
-         caption="S. venezuelensis RNAseq Dataset: Group FLF_PF") +
+         caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
     theme_bw() +
     coord_flip()
 ```
@@ -619,7 +621,7 @@ p4 <- ggplot(log2.cpm.filtered.norm.df.pivot) +
   labs(y="log2 expression", x = "sample",
        title="S. venezuelensis: Log2 Counts per Million (CPM)",
        subtitle="filtered, TMM normalized, Group FLF_PF",
-       caption="S. venezuelensis RNAseq Dataset: Group FLF_PF") +
+       caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
   theme_bw() +
   coord_flip()
 ```
@@ -673,7 +675,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(
 Finally, we save data and annotations generated in code chunks above. We can separate these saving actions into two groups:
 
 1. Data saved for downstream offline analyses, including the `SvRNAseq_group_FLF_PF_data_preprocessed` file which saves filtered, normalized (but not voom adjusted) log2CPM values, gene annotation information, and sample information.
-2. Files that are required inputs to the *Strongyloides* RNAseq Browser App, including:
+2. Files that are required inputs to the *Strongyloides* RNA-seq Browser App, including:
 
     i) a gene annotation R object (`Sv_geneAnnotations`)
     ii)  the variance-stabilized vDGEList, saved as an R object (`Sv_vDGEList`)
@@ -730,7 +732,7 @@ save(SvRNAseq.preprocessed.data,
 
 
 
-# Appendix I: Replicate above chunks for Group iL3_extended  
+# Appendix I: Replicate above chunks for Batch iL3_extended  
 ## Import Kallisto Reads
 Collecting code for reading in Kallisto reads through Generating a DGEList. Gene annotations are not re-imported. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).   
 ```{r iL3_extended.preprocessing.1, eval = FALSE}
@@ -783,8 +785,8 @@ p1<-ggplot(myTPM.stats) +
     #geom_hex(show.legend = FALSE) +
     labs(y="Median", x = "Standard deviation",
          title="S. venezuelensis: Transcripts per million (TPM)",
-         subtitle="unfiltered, non-normalized data, Group iL3_extended",
-         caption="S. venezuelensis RNAseq Dataset: Group iL3_extended") +
+         subtitle="unfiltered, non-normalized data, Batch iL3_extended",
+         caption="S. venezuelensis RNA-seq Dataset: Batch iL3_extended") +
     theme_bw()
 p1
 myDGEList <- DGEList(Txi_gene$counts, 
@@ -818,8 +820,8 @@ p2 <- ggplot(log2.cpm.df.pivot) +
                  show.legend = FALSE) +
     labs(y="log2 expression", x = "sample",
          title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="unfiltered, non-normalized, Group iL3_extended",
-         caption="RNAseq Dataset: Group iL3_extended") +
+         subtitle="unfiltered, non-normalized, Batch iL3_extended",
+         caption="RNA-seq Dataset: Batch iL3_extended") +
     theme_bw() +
     coord_flip()
 ```
@@ -854,8 +856,8 @@ p3 <- ggplot(log2.cpm.filtered.df.pivot) +
                  show.legend = FALSE) +
     labs(y="log2 expression", x = "sample",
          title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="filtered, non-normalized, Group iL3_extended",
-         caption="RNAseq Dataset: Group iL3_extended") +
+         subtitle="filtered, non-normalized, Batch iL3_extended",
+         caption="RNA-seq Dataset: Batch iL3_extended") +
     theme_bw() +
     coord_flip()
 ```
@@ -891,8 +893,8 @@ p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
                  show.legend = FALSE) +
     labs(y="expression", x = "sample",
          title="S. venezuelensis: Counts per Million (CPM)",
-         subtitle="genes excluded by low count filtering step, non-normalized, Group iL3_extended",
-         caption="RNAseq Dataset: Group iL3_extended") +
+         subtitle="genes excluded by low count filtering step, non-normalized, Batch iL3_extended",
+         caption="RNA-seq Dataset: Batch iL3_extended") +
     theme_bw() +
     coord_flip()
 ```
@@ -937,8 +939,8 @@ p4 <- ggplot(log2.cpm.filtered.norm.df.pivot) +
                  show.legend = FALSE) +
     labs(y="log2 expression", x = "sample",
          title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="filtered, TMM normalized, Group iL3_extended",
-         caption="RNAseq Dataset: Group iL3_extended") +
+         subtitle="filtered, TMM normalized, Batch iL3_extended",
+         caption="RNA-seq Dataset: Batch iL3_extended") +
     theme_bw() +
     coord_flip()
 ```
@@ -977,7 +979,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(
 ```
 
 ## Save Data  
-This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNAseq browser. Thus, code for generating elements necessary for the browser are commented out.      
+This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNA-seq browser. Thus, code for generating elements necessary for the browser are commented out.      
 ```{r iL3.extended.preprocessing.8, eval = FALSE}
 
 # Check for presence of output folder, generate if it doesn't exist
@@ -1231,7 +1233,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(
 ```
 
 ## Save Data and Annotations  
-This code chunk saves data, generated in Appendix II. This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNAseq browser. Thus, code for generating elements necessary for the browser are commented out.   
+This code chunk saves data, generated in Appendix II. This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNA-seq browser. Thus, code for generating elements necessary for the browser are commented out.   
 ```{r allSamples.processing.3, eval = FALSE}
 
 # Check for presence of output folder, generate if it doesn't exist

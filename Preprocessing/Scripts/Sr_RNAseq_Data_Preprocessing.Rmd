@@ -1,5 +1,5 @@
 ---
-title: Pre-processing of *Strongyloides ratti* bulk RNAseq via an alignment-free
+title: Pre-processing of *Strongyloides ratti* bulk RNA-seq via an alignment-free
   analysis pipeline
 output:
   pdf_document:
@@ -10,7 +10,7 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides ratti* RNAseq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
+The goal of this file is to pre-process the *Strongyloides ratti* RNA-seq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
 
 # Pre-processing Methods Overview 
 Raw reads are aligned to the *S. ratti* reference transcriptome (PRJEB125.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_ratti_prjeb125/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. stercoralis*), and a reference member of the out-group (*S. papillosus*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data could be saved as a digitial gene expression list if desired (not currently done).   
@@ -330,7 +330,7 @@ annotations<-dplyr::left_join(Annt.logs, Annt.interpro) %>%
   column_to_rownames(var = "geneID")
 
 # List of S. ratti genes is longer than the number of genes
-# in the RNAseq dataset. So subset the annotations by the geneIDs in Txi_gene
+# in the RNA-seq dataset. So subset the annotations by the geneIDs in Txi_gene
 annotations<-annotations[rownames(annotations) %in% rownames(Txi_gene$counts),]
 
 
@@ -369,7 +369,7 @@ p1<-ggplot(myTPM.stats) +
   labs(y="Median", x = "Standard deviation",
        title="Transcripts per million (TPM)",
        subtitle="unfiltered, non-normalized data",
-       caption="S. ratti RNAseq Dataset") +
+       caption="S. ratti RNA-seq Dataset") +
   theme_bw()
 p1
 
@@ -642,7 +642,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(v.DEGList.filtered.norm$targets$gro
 Finally, we save data and annotations generated in code chunks above. We can separate these saving actions into two groups:
 
 1. Data saved for downstream offline analyses, including the `SrRNAseq_data_preprocessed` file which saves filtered, normalized (but not voom adjusted) log2CPM values, gene annotation information, and sample information.
-2. Files that are required inputs to the *Strongyloides* RNAseq Browser App, including:
+2. Files that are required inputs to the *Strongyloides* RNA-seq Browser App, including:
 
     i) a gene annotation R object (`Sr_geneAnnotations`)
     ii)  the variance-stabilized vDGEList, saved as an R object (`Sr_vDGEList`)

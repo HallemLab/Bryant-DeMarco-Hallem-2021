@@ -1,26 +1,29 @@
 ---
-title: Offline Data Analysis of *Strongyloides venezuelensis* bulk RNAseq data
+title: Offline Data Analysis of *Strongyloides venezuelensis* bulk RNA-seq data
 output:
   html_document:
     code_folding: hide
     df_print: paged
     toc: yes
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
 ---
 
 # Introduction
-The goal of this file is to lay out proof-of-concept analyses of the *Strongyloides venezuelensis* RNAseq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z).  
+The goal of this file is to lay out proof-of-concept analyses of the *Strongyloides venezuelensis* RNA-seq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z).  
 
-Samples included in this database were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). All samples are filed under the same study accession number, PRJDB3457, but they have different SRA study numbers. Dividing the experiments based on sequencing instrument produces two batches, both of which contain data from Free-living females and thereotically permit batch correction. However, following limma-based batch correction there were still substantial differences between FLF groups from the two batches. We therefore take the conservative approach of treating these two batches separately.   
-Thus, we define two functional groups for processing and analysis:  
-1. Group FLF_PF: Free-living females and parasitic females (samples DRR106346 - DRR106357; aka SAMD00096905-SAMD00096910; SRA Study: DRP002629). This set includes 3 biological replicates and two technical replicates per life stage.  
-2. Group iL3_extended: Egg, L1, iL3s, activated iL3s (1 and 5 day), iL3_lung, Young_FLF, FLF (samples DRR029282, DRR029433 - DRR029445; SRA Study: ). This set includes 1 biological replicated and two technical replicates per life stage, except for activated iL3s, which have a single technical replicate at 1 and 5 days.  
+Samples included in this database were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). All samples are filed under the same study accession number, PRJDB3457, but they have different SRA study numbers. Dividing the experiments based on sequencing instrument produces two batches:  
+ 
+1. Batch FLF_PF: Free-living females and parasitic females (samples DRR106346 - DRR106357; aka SAMD00096905-SAMD00096910; SRA Study: DRP002629). This set includes 3 biological replicates and two technical replicates per life stage.  
+2. Batch iL3_extended: Egg, L1, iL3s, activated iL3s (1 and 5 day), iL3_lung, Young_FLF, FLF (samples DRR029282, DRR029433 - DRR029445; SRA Study: ). This set includes 1 biological replicated and two technical replicates per life stage, except for activated iL3s, which have a single technical replicate at 1 and 5 days.  
 
-Here, only the first group (FLF_PF) is analyzed, as the lack of biological replicates in Group iL3_extended requires a significant adjustment to the analysis pipeline. Specifically, the use of empirical bayes smoothing of gene-wise standard deviations to [provide increased power](https://www.degruyter.com/doi/10.2202/1544-6115.1027) is not possible without biological replicates. 
+Both bacthes contain data from free-living females, which would thereotically permit batch correction and analysis of all samples. However, following limma-based batch correction there were still substantial differences between free-living female samples from the two batches. We therefore take the conservative approach of treating these two batches separately. Furthermore, we only include the first batch (FLF_PF) for downstream analysis, as the lack of biological replicates in Batch iL3_extended requires a significant adjustment to the analysis pipeline. Specifically, the use of empirical bayes smoothing of gene-wise standard deviations to [provide increased power](https://www.degruyter.com/doi/10.2202/1544-6115.1027) is not possible without biological replicates. 
 
-### Data Pre-Processing    
+## Data Pre-Processing    
 A full description of Kallisto alignment and data filtering/normalization steps can be found in `Sv_RNAseq_Data_Preprocessing.rmd`.
 
-### Data Analysis   
+## Data Analysis   
 The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605792/), [Phipson *et al* 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5373812/)) is used to conduct pairwise differential gene expression analyses between life stages. The results of the pairwise comparison is displayed as a volcano plot and interactive DataTable. 
 
 # Code
@@ -101,7 +104,7 @@ p1<-dend %>%
   theme_dendro() +
   ylim(0, max(get_branches_heights(dend))) +
   labs(title = "S. venezuelensis: Hierarchical Cluster Dendrogram",
-       subtitle = "filtered, TMM normalized, group FLF/PF",
+       subtitle = "filtered, TMM normalized, batch FLF/PF",
        y = "Distance",
        x = "Life stage") +
   coord_fixed(1/2) +
@@ -167,9 +170,9 @@ p3<-ggplot(pca.res.df) +
                        c(21, 23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="S. venezuelensis: Principal Components Analysis of RNAseq Samples",
+  labs(title="S. venezuelensis: Principal Components Analysis of RNA-seq Samples",
        caption = "Note: analysis is blind to life stage identity.",
-       subtitle ="RNAseq Dataset: Group FLF_PF",
+       subtitle ="RNA-seq Dataset: batch FLF_PF",
        fill = "Life Stage",
        shape = "Life Stage") +
   scale_x_continuous(expand = c(.3, .3)) +
@@ -229,7 +232,7 @@ p6<-ggplot(pca.pivot) +
   #geom_bar(data = PC2, stat = "identity", aes(fill = source)) +
   labs(title="S. venezuelensis: PCA 'small multiples' plot",
        fill = "Life Stage",
-       subtitle ="RNAseq Dataset: Group FLF_PF") +
+       subtitle ="RNA-seq Dataset: batch FLF_PF") +
   scale_x_discrete(limits = targets$sample, labels = targets$source) +
   theme_bw() +
   theme(text = element_text(size = 10),
@@ -325,7 +328,7 @@ p<-pheatmap(diffGenes,
             show_rownames = F,
             scale = "row",
             angle_col = 45,
-            main = "Sv: Log2 Counts Per Million (CPM) Expression Across Life Stages (Group FLF_PF)"
+            main = "Sv: Log2 Counts Per Million (CPM) Expression Across Life Stages (Batch FLF_PF)"
 
 )
 
@@ -642,7 +645,7 @@ Browser.dat <- list.myTopHits.df$`(PF)-(FLF)` %>%
   dplyr::select(geneID, logFC)
 
 print(paste('Total number of genes in Hunt *et al* 2018 PF vs FLF comparison tab:',nrow(Hunt.dat)))
-print(paste('Total number of genes in Str-RNAseq Browser PF vs FLF output file:', nrow(Browser.dat))) 
+print(paste('Total number of genes in Str-RNA-seq Browser PF vs FLF output file:', nrow(Browser.dat))) 
 
 
 plotting.all <- inner_join(Browser.dat, Hunt.dat, by = "geneID")
@@ -657,7 +660,7 @@ p.benchmark <- ggplot(plotting.all, aes(x = logFC.x, y = logFC.y)) +
   geom_smooth(method=lm, color = 'red', formula = "y ~ x") +
   geom_point(shape=16, size=3, alpha = 0.8) +
   labs(title = "S. venezuelensis: Str-Browser vs Hunt Data",
-       subtitle = "Group: FLF_PF; comparison = PF vs FLF",
+       subtitle = "Batch FLF_PF; comparison = PF vs FLF",
        caption = paste("points = genes; red line/shading = linear regression \n",
                        "w/ 95% confidence regions (formula = y ~ x). \n",
                        "Adj R-squared =",
@@ -686,7 +689,7 @@ p.benchmark
 ```
 
 ### Expression levels of genes overlapping/non-overlapping in Browser and Hunt Datasets  
-This plot visualizes genes that are found in the Strongyloides RNAseq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
+This plot visualizes genes that are found in the Strongyloides RNA-seq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
 ```{r Benchmarking2, message=FALSE}
 cpm.all<- subset(log2.cpm.filtered.norm, 
                  rownames(log2.cpm.filtered.norm) %in% plotting.all$geneID) %>%
@@ -954,7 +957,7 @@ compara.absent <- unique(ensComp.geneIDs$geneID) %>%
   as_tibble_col(column_name = "geneID") %>%
   dplyr::anti_join(diffGenes.df,., by = "geneID") %>%
   dplyr::select(geneID)
-paste('Number of genes exclusive to the RNAseq Gene List: ',nrow(compara.absent))
+paste('Number of genes exclusive to the RNA-seq Gene List: ',nrow(compara.absent))
 
 # How many genes have associated GO terms? ----
 GO.present <- list.myTopHits.df[[yy]]$GO_term %>%
@@ -986,7 +989,7 @@ ensComp <- left_join(ensComp.geneIDs, ensComp.familyIDs, by = "Compara.family.id
 
 rm(ensComp.geneIDs, ensComp.familyIDs)
 
-# Filter out genes that aren't part of our RNAseq dataset
+# Filter out genes that aren't part of our RNA-seq dataset
 genelist <- v.DEGList.filtered.norm$genes %>%
   rownames_to_column(var = "geneID") %>%
   dplyr::select(geneID)
@@ -1088,7 +1091,7 @@ ggplot(myGSEA.df, aes(x=life_stage, y=ID)) +
 ```
 
 # Appendix I: Analysis of Full *S. venezuelensis* Dataset  
-As stated in the Introduction, samples included in the *S. venezuelensis* database can be divided into two distinct batches that were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). The code below runs hierarchical clustering and PCA analyses on all samples, and samples after limma-based batch correction. In both cases, there appear to be substantial differences between FLF groups from the two batches; thus the primary analyses above only analyze a single group and do not attempt to batch correct.  
+As stated in the Introduction, samples included in the *S. venezuelensis* database can be divided into two distinct batches that were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). The code below runs hierarchical clustering and PCA analyses on all samples, and samples after limma-based batch correction. In both cases, there appear to be substantial differences between FLF samples from the two batches; thus the primary analyses above only analyze a single batch and do not attempt to batch correct.  
 
 ```{r loadBaseData.fullset, echo = FALSE}
 # Load and Parse Preprocessed Data
@@ -1200,7 +1203,7 @@ p3<-ggplot(pca.res.df) +
   #stat_ellipse() +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="S. venezuelensis: Principal Components Analysis of RNAseq Samples",
+  labs(title="S. venezuelensis: Principal Components Analysis of RNA-seq Samples",
        subtitle = "Not batch corrected, full dataset",
        caption = "Note: analysis is blind to life stage identity.",
        fill = "Life Stage") +
@@ -1310,7 +1313,7 @@ p3<-ggplot(pca.res.df) +
   #stat_ellipse() +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="S. venezuelensis: Principal Components Analysis of RNAseq Samples",
+  labs(title="S. venezuelensis: Principal Components Analysis of RNA-seq Samples",
        subtitle = "Batch-corrected, full dataset",
        caption = "Note: analysis is blind to life stage identity.",
        fill = "Life Stage") +

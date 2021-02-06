@@ -1,6 +1,5 @@
 ---
-title: Pre-processing of *Strongyloides papillosus* bulk RNAseq via an alignment-free
-  analysis pipeline
+title: Pre-processing of *Strongyloides papillosus* bulk RNA-seq via an alignment-free analysis pipeline
 output:
   pdf_document:
     df_print: paged
@@ -10,7 +9,7 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides papillosus* RNAseq dataset originally analyzed by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
+The goal of this file is to pre-process the *Strongyloides papillosus* RNA-seq dataset originally analyzed by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
 
 # Pre-processing Methods Overview  
 Raw reads are aligned to the *S. papillosus* reference transcriptome (PRJEB525.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_papillosus_prjeb525/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. venezuelensis*), and a reference member of the out-group (*S. stercoralis*. Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data is be saved as a digitial gene expression list.     
@@ -147,13 +146,13 @@ save(Txi_gene,
 ## Gene Annotation  
 Import gene annotation information for *S. papillosus* genes, including:
 
-  * *C. elegans* homologs/percent homology
-  * *S. venezuelensis* homologs/percent homology
-  * *S. stercoralis* homologs/percent homology
-  * UniProtKB number
-  * Interpro terms
-  * GO terms
-  * general Description information using biomart.
+* *C. elegans* homologs/percent homology
+* *S. venezuelensis* homologs/percent homology
+* *S. stercoralis* homologs/percent homology
+* UniProtKB number
+* Interpro terms
+* GO terms
+* general Description information using biomart.
 
 ```{r geneAnnotation}
 # Introduction to this chunk -----------
@@ -207,14 +206,14 @@ Annt.temp.1 <- getBM(attributes=c('wbps_gene_id',
 Annt.temp.2 <- getBM(attributes=c('wbps_gene_id',
                                   'ststerprjeb528_gene',
                                   'ststerprjeb528_homolog_perc_id'
-                                  ),
-                     # grab the ensembl annotations for Wormbase Parasite genes
-                     mart = useMart(biomart="parasite_mart", 
-                                    dataset = "wbps_gene", 
-                                    host="https://parasite.wormbase.org", 
-                                    port = 443),
-                     filters = c('species_id_1010'),
-                     value = list('stpapiprjeb525')) %>%
+),
+# grab the ensembl annotations for Wormbase Parasite genes
+mart = useMart(biomart="parasite_mart", 
+               dataset = "wbps_gene", 
+               host="https://parasite.wormbase.org", 
+               port = 443),
+filters = c('species_id_1010'),
+value = list('stpapiprjeb525')) %>%
   as_tibble() %>%
   #rename columns 
   dplyr::rename(geneID = wbps_gene_id,
@@ -320,7 +319,7 @@ annotations<-dplyr::left_join(Annt.logs, Annt.interpro) %>%
   column_to_rownames(var = "geneID")
 
 # List of S. papillosus genes is longer than the number of 
-# genes in the RNAseq dataset. So subset the 
+# genes in the RNA-seq dataset. So subset the 
 # annotations by the geneIDs in Txi_gene
 annotations<-annotations[
   rownames(annotations) %in% rownames(Txi_gene$counts),]
@@ -360,7 +359,7 @@ p1<-ggplot(myTPM.stats) +
   labs(y="Median", x = "Standard deviation",
        title="S. papillosus: Transcripts per million (TPM)",
        subtitle="unfiltered, non-normalized data",
-       caption="S. papillosus RNAseq Dataset") +
+       caption="S. papillosus RNA-seq Dataset") +
   theme_bw()
 p1
 
@@ -376,9 +375,9 @@ myDGEList <- DGEList(Txi_gene$counts,
 ## Data Filtering and Normalization  
 The goal of this chunk is to:
 
-  1. Filter and normalize data
-  2. Use `ggplot2` to visualize the impact of filtering and normalization on the data.
-  
+1. Filter and normalize data
+2. Use `ggplot2` to visualize the impact of filtering and normalization on the data.
+
 ```{r dataWrangling.1}
 # Goals of this chunk:
 # 1 - Filter and normalize data
@@ -403,7 +402,7 @@ suppressPackageStartupMessages({
 if (!exists("targets")){
   targets <- read_tsv(
     "../Data/S_papillosus/Study_Design/PRJEB14543_study_design.txt",
-                    na = c("", "NA", "na"))
+    na = c("", "NA", "na"))
 }
 
 # calculate and plot log2 counts per million ----
@@ -503,35 +502,35 @@ p3
 myDGEList.discarded <- myDGEList[!keepers,]
 
 ids.discarded <- rep(cbind(targets$group), 
-                    times = nrow(myDGEList.discarded)) %>%
-    as_factor()
+                     times = nrow(myDGEList.discarded)) %>%
+  as_factor()
 
 log2.cpm.discarded.df.pivot <- cpm(myDGEList.discarded, log=F) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.discarded)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.discarded)
 
 
 p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
-    aes(x=samples, y=expression, color=life_stage) +
-    #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
-    geom_jitter(alpha = 0.3, show.legend = T)+
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="expression", x = "sample",
-         title="S. papillosus: Counts per Million (CPM)",
-         subtitle="genes excluded by low count filtering step, non-normalized",
-         caption=paste0("produced on ", Sys.time())) +
-    theme_bw() +
-    scale_color_brewer(palette = "Dark2") +
-    coord_flip()
+  aes(x=samples, y=expression, color=life_stage) +
+  #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
+  geom_jitter(alpha = 0.3, show.legend = T)+
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="expression", x = "sample",
+       title="S. papillosus: Counts per Million (CPM)",
+       subtitle="genes excluded by low count filtering step, non-normalized",
+       caption=paste0("produced on ", Sys.time())) +
+  theme_bw() +
+  scale_color_brewer(palette = "Dark2") +
+  coord_flip()
 ```
 
 ### Plot of genes discarded by low-copy filtering step  
@@ -631,15 +630,15 @@ colnames(v.DEGList.filtered.norm$E) <- paste(targets$group,
 Finally, we save data and annotations generated in code chunks above. We can separate these saving actions into two groups:
 
 1. Data saved for downstream offline analyses, including the `SpRNAseq_data_preprocessed` file which saves filtered, normalized (but not voom adjusted) log2CPM values, gene annotation information, and sample information.
-2. Files that are required inputs to the *Strongyloides* RNAseq Browser App, including:
+2. Files that are required inputs to the *Strongyloides* RNA-seq Browser App, including:
 
-    i) a gene annotation R object (`Sp_geneAnnotations`)
-    ii)  the variance-stabilized vDGEList, saved as an R object (`Sp_vDGEList`)
-    iii) a matrix of discarded genes and their raw counts (`SpRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
-    iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SpRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
-    
+i) a gene annotation R object (`Sp_geneAnnotations`)
+ii)  the variance-stabilized vDGEList, saved as an R object (`Sp_vDGEList`)
+iii) a matrix of discarded genes and their raw counts (`SpRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
+iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SpRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
+
 By default, this code chunk will not be evaluated. To save the files described above, change the chunk option from `eval = FALSE` to `eval = TRUE`. These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.    
-    
+
 ```{r saveBaseData, eval = FALSE}
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"
@@ -649,14 +648,14 @@ if (!dir.exists(output.path)){
 
 # Save full gene annotations ----
 # This object is required for the Shiny Browser
-  save(annotations, 
-       file = file.path(output.path,
-                        "Sp_geneAnnotations"))
+save(annotations, 
+     file = file.path(output.path,
+                      "Sp_geneAnnotations"))
 
 # Save a matrix of discarded genes and their raw counts ----
 discarded.gene.df %>%    
-write.csv(file = file.path(output.path,
-                           "SpRNAseq_discardedGene_counts.csv"))
+  write.csv(file = file.path(output.path,
+                             "SpRNAseq_discardedGene_counts.csv"))
 
 # Save matrix of genes and their filtered, normalized, voom-transformed counts ----
 # This is the count data that underlies the differential expression analyses in the Shiny app. 
@@ -688,7 +687,7 @@ save(SpRNAseq.preprocessed.data,
 
 
 
-     
+
 ```
 
 # Appendix I : All code for this report  

@@ -1,10 +1,13 @@
 ---
-title: Offline Data Analysis of *Strongyloides stercoralis* bulk RNAseq data
+title: Offline Data Analysis of *Strongyloides stercoralis* bulk RNA-seq data
 output:
   html_document:
     code_folding: hide
     df_print: paged
     toc: yes
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
 ---
 
 # Introduction
@@ -162,7 +165,7 @@ p3<-ggplot(pca.res.df) +
                          23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
-  labs(title="Principal Components Analysis of S. stercoralis RNAseq Samples",
+  labs(title="Principal Components Analysis of S. stercoralis RNA-seq Samples",
        sub = "Note: analysis is blind to life stage identity.",
        fill = "Life Stage",
        shape = "Life Stage") +
@@ -642,7 +645,7 @@ Browser.dat <- list.myTopHits.df$`(iL3)-(FLF)` %>%
   dplyr::select(geneID, logFC)
 
 print(paste('Total number of genes in Hunt *et al* 2016 iL3 vs FLF comparison tab:',nrow(Hunt.dat)))
-print(paste('Total number of genes in Str-RNAseq Browser iL3 vs FLF output file:', nrow(Browser.dat))) 
+print(paste('Total number of genes in Str-RNA-seq Browser iL3 vs FLF output file:', nrow(Browser.dat))) 
 
 
 plotting.all <- inner_join(Browser.dat, Hunt.dat, by = "geneID")
@@ -687,7 +690,7 @@ p.benchmark
 ```
 
 ### Expression levels of genes overlapping/non-overlapping in Browser and Hunt Datasets  
-This plot visualizes genes that are found in the Strongyloides RNAseq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
+This plot visualizes genes that are found in the Strongyloides RNA-seq Browser and not in the Hunt dataset, and asks whether they tend to have lower expression levels than genes found in both datasets. If lower expression levels are seen, this suggests that the discrepency is due to more permissive thresholding in our processing pipelines.   
 ```{r Benchmarking2, message=FALSE}
 cpm.all<- subset(log2.cpm.filtered.norm, 
                  rownames(log2.cpm.filtered.norm) %in% plotting.all$geneID) %>%
@@ -998,7 +1001,7 @@ ensComp <- left_join(ensComp.geneIDs,
 
 rm(ensComp.geneIDs, ensComp.familyIDs)
 
-# Filter out genes that aren't part of our RNAseq dataset
+# Filter out genes that aren't part of our RNA-seq dataset
 genelist <- v.DEGList.filtered.norm$genes %>%
   rownames_to_column(var = "geneID") %>%
   dplyr::select(geneID)
