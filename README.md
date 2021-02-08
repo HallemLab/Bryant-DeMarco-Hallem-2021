@@ -23,7 +23,7 @@ This folder contains RMarkdown files for each species, in which we present examp
 This folder contains an RMarkdown file and cache that tests for differential expression on longitudinal data using the ImpulseDE2 package. The ImpulseDE2 method contrasts with DE algorithms such as limma that treat time points independently. Instead, ImpulseDE2 seeks to identify genes that display specific trajectories of differential gene expression over time. An Impulse model is designed to capture 4 different expression trajectories: monotonous decrease, monotonous increase, transient decrease (valley), and transient increase (peak). The analysis included in this folder specifically tests an implementation of ImpulseDE2 analysis on a subset of the *S. stercoralis* dataset: life stages FLF, PF, iL3, iL3a.  
 
 ## App Access
-To access a stable deployment of the *Strongyloides* RNA-seq Browser Web App, please visit: [asbryant.shinyapps.io/strongyloides_rnaseq_browser/](asbryant.shinyapps.io/strongyloides_rnaseq_browser/)  
+To access a stable deployment of the *Strongyloides* RNA-seq Browser Web App, please visit: [asbryant.shinyapps.io/strongyloides_rnaseq_browser/](hallemlab.shinyapps.io/strongyloides_rnaseq_browser/)  
 
 To view full source code for the *Strongyloides* RNA-seq Browser, please visit the [app repository](https://github.com/HallemLab/Strongyloides_RNAseq_Browser). 
 
