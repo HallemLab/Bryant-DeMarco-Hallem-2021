@@ -55,6 +55,7 @@ This code chunk starts with filtered and normalized abundance data in a data fra
 suppressPackageStartupMessages({
   library(tidyverse) # you're familiar with this fromt the past two lectures
   library(ggplot2)
+    library(ggforce)
   library(RColorBrewer)
   library(ggdendro)
   library(magrittr)
@@ -1074,10 +1075,12 @@ myGSEA.df$ID <- myGSEA.df$ID %>%
 
 # create 'bubble plot' to summarize y signatures across x phenotypes
 ggplot(myGSEA.df, aes(x=life_stage, y=ID)) + 
-  geom_point(aes(size=setSize, color = NES, alpha=-log10(p.adjust))) +
+  geom_point(aes(size=setSize, color = NES, alpha=p.adjust)) +
   scale_color_gradient(low="blue", high="red") +
-  scale_alpha(name = "Adjusted p-value (-log10)") +
-  guides(alpha = guide_legend(override.aes = list(size=3))) +
+    scale_alpha(name = "Adjusted p-value",
+             trans = trans_reverser('log10')) +
+  guides(alpha = guide_legend(override.aes = list(size=3,
+                                                  color = "red"))) +
   scale_size(name = "Set Size",
              breaks = c(0,10,50,100,200),
              labels = c("0", "10", "50", "100", "200"))+
@@ -1185,10 +1188,12 @@ PC.GSEA.df <- full_join(PC1.GSEA.df,PC2.GSEA.df)
 
 # create 'bubble plot' to summarize y signatures across x phenotypes
 p.PC.gsea <- ggplot(PC.GSEA.df, aes(x=PC_ID, y=ID)) + 
-  geom_point(aes(size=setSize, color = NES, alpha=-log10(p.adjust))) +
+  geom_point(aes(size=setSize, color = NES, alpha=p.adjust)) +
   scale_color_gradient(low="blue", high="red") +
-  scale_alpha(name = "Adjusted p-value (-log10)") +
-  guides(alpha = guide_legend(override.aes = list(size=3))) +
+    scale_alpha(name = "Adjusted p-value",
+             trans = trans_reverser('log10')) +
+  guides(alpha = guide_legend(override.aes = list(size=3,
+                                                  color = "red"))) +
   scale_size(name = "Set Size",
              breaks = c(0,10,50,100,200),
              labels = c("0", "10", "50", "100", "200"))+
