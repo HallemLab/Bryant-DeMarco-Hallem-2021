@@ -507,11 +507,12 @@ list.myTopHits.df <- sapply(comparison, function(y){
 simplify = FALSE, 
 USE.NAMES = TRUE)
 
-# PC1 Volcano Plot and Interactive Table ----
+# Volcano Plot and Interactive Table ----
 vplot1 <- ggplot(list.myTopHits.df[[1]]) +
-  aes(y=-log10(BH.adj.P.Val), x=logFC, text = paste(geneID, "<br>",
+  aes(y=BH.adj.P.Val, x=logFC, text = paste(geneID, "<br>",
                                                     "logFC:", round(logFC, digits = 2), "<br>",
                                                     "p-val:", format(BH.adj.P.Val, digits = 3, scientific = TRUE))) +
+  scale_y_continuous(trans = trans_reverser('log10')) +
   geom_point(size=2) +
   geom_hline(yintercept = -log10(adj.P.thresh), 
              linetype="longdash", 
@@ -531,7 +532,9 @@ vplot1 <- ggplot(list.myTopHits.df[[1]]) +
                            comparison[1])),
        subtitle = paste0("grey line: p = ",
                          adj.P.thresh, "; colored lines: log-fold change = ", lfc.thresh),
-       color = "GeneIDs") +
+       color = "GeneIDs",
+       y = "BH-adjusted p-value",
+       x = "log2FC") +
   theme_Publication() 
 vplot1
 
