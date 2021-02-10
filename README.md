@@ -19,6 +19,9 @@ This folder contains RMarkdown files for each species; these files contain code 
 ### Analysis  
 This folder contains RMarkdown files for each species, in which we present example analyses. These analyses include hierarchical clustering and principal component analyses of species samples, limma-voom differential expression (example results echoing analyses completed by the Shiny App), benchmarking of Browser datasets and differential expression analyses against previously published datasets, and an example gene set enrichment analysis. Rmd files are knitted into html files, and both PCA and Benchmarking plots are saved in a Plot subfolder in the Outputs folder. See the readme file located in the subfolder for additional details.  
 
+### Supplemental Materials  
+This folder contains supplemental figures and files from the manuscript of Bryant, DeMarco, and Hallem (2021). See subfolder README for details.  
+
 ### Time_course_DGE  
 This folder contains an RMarkdown file and cache that tests for differential expression on longitudinal data using the ImpulseDE2 package. The ImpulseDE2 method contrasts with DE algorithms such as limma that treat time points independently. Instead, ImpulseDE2 seeks to identify genes that display specific trajectories of differential gene expression over time. An Impulse model is designed to capture 4 different expression trajectories: monotonous decrease, monotonous increase, transient decrease (valley), and transient increase (peak). The analysis included in this folder specifically tests an implementation of ImpulseDE2 analysis on a subset of the *S. stercoralis* dataset: life stages FLF, PF, iL3, iL3a.  
 
