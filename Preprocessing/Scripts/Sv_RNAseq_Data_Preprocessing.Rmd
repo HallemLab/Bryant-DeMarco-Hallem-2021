@@ -13,10 +13,10 @@ output:
 The goal of this file is to pre-process the *Strongyloides venezuelensis* RNA-seq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z). 
 
 # Pre-processing Methods Overview 
-Raw reads are aligned to the *S. venezuelensis* reference transcriptome (PRJEB530.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_venezuelensis_PRJEB530/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT.Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. papillosus*), and a reference member of the out-group (*S. stercoralis*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Raw count data is saved as an R object.   
+Raw reads are aligned to the *S. venezuelensis* reference transcriptome (PRJEB530.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_venezuelensis_PRJEB530/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT.Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. papillosus*), and both members of the out-group (*S. stercoralis* and *S. ratti*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Raw count data is saved as an R object.   
 
 Samples included in study PRJDB3457 were prepared using different libary construction methods (amplified vs non-amplified), sequencing run batches, and machines ([Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)). Dividing the experiments based on sequencing instrument produces two batches:  
- 
+
 1. Batch FLF_PF: Free-living females and parasitic females (samples DRR106346 - DRR106357; aka SAMD00096905-SAMD00096910; SRA Study: DRP002629). This set includes 3 biological replicates and two technical replicates per life stage.  
 2. Batch iL3_extended: Egg, L1, iL3s, activated iL3s (1 and 5 day), iL3_lung, Young_FLF, FLF (samples DRR029282, DRR029433 - DRR029445; SRA Study: ). This set includes 1 biological replicated and two technical replicates per life stage, except for activated iL3s, which have a single technical replicate at 1 and 5 days.  
 
@@ -212,13 +212,14 @@ save(Txi_gene,
 ## Gene Annotation   
 Import gene annotation information for *S. venezuelensis* genes, including:
 
-  * *C. elegans* homologs/percent homology
-  * *S. papillosus* homologs/percent homology
-  * *S. stercoralis* homologs/percent homology
-  * UniProtKB number
-  * Interpro terms
-  * GO terms
-  * general Description information using biomart.
+* *C. elegans* homologs/percent homology
+* *S. papillosus* homologs/percent homology
+* *S. stercoralis* homologs/percent homology
+* *S. ratti* homologs/percent homology
+* UniProtKB number
+* Interpro terms
+* GO terms
+* general Description information using biomart.
 
 ```{r geneAnnotation}
 # Load packages ------
@@ -255,19 +256,19 @@ Annt.temp.1 <- getBM(attributes=c('wbps_gene_id',
   ) %>%
   dplyr::group_by(geneID)
 
-# Get Out-subclade group homologs for S. venezuelensis genes 
+# Get first out-subclade group homologs for S. venezuelensis genes 
 # from BioMart and filter -----
 Annt.temp.2 <- getBM(attributes=c('wbps_gene_id',
                                   'ststerprjeb528_gene',
                                   'ststerprjeb528_homolog_perc_id'
-                                  ),
-                     # grab the ensembl annotations for Wormbase Parasite genes
-                     mart = useMart(biomart="parasite_mart", 
-                                    dataset = "wbps_gene", 
-                                    host="https://parasite.wormbase.org", 
-                                    port = 443),
-                     filters = c('species_id_1010'),
-                     value = list('stveneprjeb530')) %>%
+),
+# grab the ensembl annotations for Wormbase Parasite genes
+mart = useMart(biomart="parasite_mart", 
+               dataset = "wbps_gene", 
+               host="https://parasite.wormbase.org", 
+               port = 443),
+filters = c('species_id_1010'),
+value = list('stveneprjeb530')) %>%
   as_tibble() %>%
   #rename columns 
   dplyr::rename(geneID = wbps_gene_id,
@@ -276,9 +277,30 @@ Annt.temp.2 <- getBM(attributes=c('wbps_gene_id',
   ) %>%
   dplyr::group_by(geneID)
 
-# Get C. elegans homologs and gene information for S. venezuelensis genes 
+# Get second out-subclade group homologs for S. venezuelensis genes 
 # from BioMart and filter -----
 Annt.temp.3 <- getBM(attributes=c('wbps_gene_id',
+                                  'strattprjeb125_gene_name',
+                                  'strattprjeb125_homolog_perc_id'
+),
+# grab the ensembl annotations for Wormbase Parasite genes
+mart = useMart(biomart="parasite_mart", 
+               dataset = "wbps_gene", 
+               host="https://parasite.wormbase.org", 
+               port = 443),
+filters = c('species_id_1010'),
+value = list('stveneprjeb530')) %>%
+  as_tibble() %>%
+  #rename columns 
+  dplyr::rename(geneID = wbps_gene_id,
+                Out2.subclade_geneID = strattprjeb125_gene_name,
+                Out2.subclade_percent_homology= strattprjeb125_homolog_perc_id
+  ) %>%
+  dplyr::group_by(geneID)
+
+# Get C. elegans homologs and gene information for S. venezuelensis genes 
+# from BioMart and filter -----
+Annt.temp.4 <- getBM(attributes=c('wbps_gene_id',
                                   'caelegprjna13758_gene_name',
                                   'caelegprjna13758_homolog_perc_id',
                                   'description',
@@ -304,7 +326,8 @@ Annt.temp.3 <- getBM(attributes=c('wbps_gene_id',
   dplyr::group_by(geneID)
 
 Annt.import <- full_join(Annt.temp.1, Annt.temp.2, by = "geneID") %>%
-  full_join(Annt.temp.3, by = "geneID")
+  full_join(Annt.temp.3, by = "geneID") %>%
+  full_join(Annt.temp.4, by = "geneID")
 
 Annt.import$geneID <- str_remove_all(Annt.import$geneID, "\\.[0-9]$")
 Annt.import$geneID <- str_remove_all(Annt.import$geneID, "[a-z]$")
@@ -321,6 +344,8 @@ Annt.import$In.subclade_percent_homology[
   is.na(Annt.import$In.subclade_percent_homology)] <- 1000
 Annt.import$Out.subclade_percent_homology[
   is.na(Annt.import$Out.subclade_percent_homology)] <- 1000
+Annt.import$Out2.subclade_percent_homology[
+  is.na(Annt.import$Out2.subclade_percent_homology)] <- 1000
 
 Annt.logs <-Annt.import %>%
   dplyr::select(!c(interpro_short_description:GO_term))%>%
@@ -330,6 +355,8 @@ Annt.logs <-Annt.import %>%
   slice_max(n = 1, order_by = In.subclade_percent_homology, 
             with_ties = FALSE) %>%
   slice_max(n = 1, order_by = Out.subclade_percent_homology, 
+            with_ties = FALSE) %>%
+  slice_max(n = 1, order_by = Out2.subclade_percent_homology, 
             with_ties = FALSE) %>%
   group_by(geneID, Ce_geneID) 
 
@@ -346,6 +373,8 @@ Annt.logs$In.subclade_percent_homology[
   Annt.logs$In.subclade_percent_homology == 1000]<- NA
 Annt.logs$Out.subclade_percent_homology[
   Annt.logs$Out.subclade_percent_homology == 1000]<- NA
+Annt.logs$Out2.subclade_percent_homology[
+  Annt.logs$Out2.subclade_percent_homology == 1000]<- NA
 
 # Clean up interprotKB terms, removing duplications and collapsing to one line
 Annt.interpro<-Annt.import %>%
@@ -368,6 +397,8 @@ annotations<-dplyr::left_join(Annt.logs, Annt.interpro) %>%
                   In.subclade_percent_homology, 
                   Out.subclade_geneID, 
                   Out.subclade_percent_homology, 
+                  Out2.subclade_geneID, 
+                  Out2.subclade_percent_homology, 
                   .after = geneID) %>%
   column_to_rownames(var = "geneID")
 
@@ -423,10 +454,10 @@ myDGEList <- DGEList(Txi_gene$counts,
 ## Data Filtering and Normalization   
 Goals of this chunk:
 
-  1. Filter and normalize data
-  2. Use ggplot2 to visualize the impact of filtering and normalization on the data.  
+1. Filter and normalize data
+2. Use ggplot2 to visualize the impact of filtering and normalization on the data.  
 In this chunk the two experimental groups are separated.
-  
+
 ```{r dataWrangling.1}
 # Goals of this chunk:
 # 1 - Filter and normalize data
@@ -543,34 +574,34 @@ p3
 myDGEList.discarded <- myDGEList[!keepers,]
 
 ids.discarded <- rep(cbind(targets$group), 
-                    times = nrow(myDGEList.discarded)) %>%
-    as_factor()
+                     times = nrow(myDGEList.discarded)) %>%
+  as_factor()
 
 log2.cpm.discarded.df.pivot <- cpm(myDGEList.discarded, log=F) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.discarded)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.discarded)
 
 
 p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
-    aes(x=samples, y=expression, color=life_stage) +
-    #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
-    geom_jitter(alpha = 0.3, show.legend = T)+
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="expression", x = "sample",
-         title="S. venezuelensis: Counts per Million (CPM)",
-         subtitle="genes excluded by low count filtering step, non-normalized, Group FLF_PF",
-         caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
-    theme_bw() +
-    coord_flip()
+  aes(x=samples, y=expression, color=life_stage) +
+  #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
+  geom_jitter(alpha = 0.3, show.legend = T)+
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="expression", x = "sample",
+       title="S. venezuelensis: Counts per Million (CPM)",
+       subtitle="genes excluded by low count filtering step, non-normalized, Group FLF_PF",
+       caption="S. venezuelensis RNA-seq Dataset: Group FLF_PF") +
+  theme_bw() +
+  coord_flip()
 ```
 
 ### Plot of genes discarded by low-copy filtering step  
@@ -677,13 +708,13 @@ Finally, we save data and annotations generated in code chunks above. We can sep
 1. Data saved for downstream offline analyses, including the `SvRNAseq_group_FLF_PF_data_preprocessed` file which saves filtered, normalized (but not voom adjusted) log2CPM values, gene annotation information, and sample information.
 2. Files that are required inputs to the *Strongyloides* RNA-seq Browser App, including:
 
-    i) a gene annotation R object (`Sv_geneAnnotations`)
-    ii)  the variance-stabilized vDGEList, saved as an R object (`Sv_vDGEList`)
-    iii) a matrix of discarded genes and their raw counts (`SvRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
-    iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SvRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
-    
+i) a gene annotation R object (`Sv_geneAnnotations`)
+ii)  the variance-stabilized vDGEList, saved as an R object (`Sv_vDGEList`)
+iii) a matrix of discarded genes and their raw counts (`SvRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
+iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SvRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
+
 By default, this code chunk will not be evaluated. To save the files described above, change the chunk option from `eval = FALSE` to `eval = TRUE`. These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.      
-```{r saveBaseData, eval = FALSE}
+```{r saveBaseData, eval = TRUE}
 
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"
@@ -693,14 +724,14 @@ if (!dir.exists(output.path)){
 
 # Save full gene annotations ----
 save(annotations,
-file = file.path(output.path,
-                 "Sv_geneAnnotations"))
+     file = file.path(output.path,
+                      "Sv_geneAnnotations"))
 
 # Save a matrix of discarded genes and their raw counts ----
 discarded.gene.df %>%    
-write.csv(file = 
-            file.path(output.path,
-                      "SvRNAseq_discardedGene_counts.csv"))
+  write.csv(file = 
+              file.path(output.path,
+                        "SvRNAseq_discardedGene_counts.csv"))
 
 # Save matrix of genes and their filtered, normalized, voom-transformed counts ----
 # This is the count data that underlies the differential expression analyses in the Shiny app. 
@@ -748,13 +779,13 @@ Tx.Sv <- getBM(attributes=c('wbps_transcript_id',
                               port = 443),
                filters = c('species_id_1010'),
                value = list('stveneprjeb530')) %>%
-    as_tibble() %>%
-    #we need to rename the columns retreived from biomart
-    dplyr::rename(target_id = wbps_transcript_id,
-                  WB_geneID = wbps_gene_id) %>%
-    dplyr::mutate(gene_name = str_remove_all(target_id, "\\.[0-9]$")) %>%
-    dplyr::mutate(gene_name = str_remove_all(gene_name, "[a-c]$")) %>%
-    dplyr::select(!WB_geneID)
+  as_tibble() %>%
+  #we need to rename the columns retreived from biomart
+  dplyr::rename(target_id = wbps_transcript_id,
+                WB_geneID = wbps_gene_id) %>%
+  dplyr::mutate(gene_name = str_remove_all(target_id, "\\.[0-9]$")) %>%
+  dplyr::mutate(gene_name = str_remove_all(gene_name, "[a-c]$")) %>%
+  dplyr::select(!WB_geneID)
 Txi_gene <- tximport(path, 
                      type = "kallisto", 
                      tx2gene = Tx.Sv[,1:2], 
@@ -779,15 +810,15 @@ myTPM.stats <- transform(Txi_gene$abundance,
                          AVG=rowMeans(Txi_gene$abundance),
                          MED=rowMedians(Txi_gene$abundance))
 p1<-ggplot(myTPM.stats) + 
-    aes(x = SD, y = MED) +
-    geom_point(shape=16, size=2, alpha = 0.2) +
-    geom_smooth(method=lm) +
-    #geom_hex(show.legend = FALSE) +
-    labs(y="Median", x = "Standard deviation",
-         title="S. venezuelensis: Transcripts per million (TPM)",
-         subtitle="unfiltered, non-normalized data, Batch iL3_extended",
-         caption="S. venezuelensis RNA-seq Dataset: Batch iL3_extended") +
-    theme_bw()
+  aes(x = SD, y = MED) +
+  geom_point(shape=16, size=2, alpha = 0.2) +
+  geom_smooth(method=lm) +
+  #geom_hex(show.legend = FALSE) +
+  labs(y="Median", x = "Standard deviation",
+       title="S. venezuelensis: Transcripts per million (TPM)",
+       subtitle="unfiltered, non-normalized data, Batch iL3_extended",
+       caption="S. venezuelensis RNA-seq Dataset: Batch iL3_extended") +
+  theme_bw()
 p1
 myDGEList <- DGEList(Txi_gene$counts, 
                      samples = data.frame(samples = targets$source, source = targets$sample, batch = targets$batch),
@@ -801,29 +832,29 @@ myDGEList <- DGEList(Txi_gene$counts,
 
 ids <- rep(cbind(targets$group), 
            times = nrow(myDGEList$counts)) %>%
-    as_factor()
+  as_factor()
 log2.cpm.df.pivot <-cpm(myDGEList, log=TRUE) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID, 
-                 names_to = "samples", 
-                 values_to = "expression") %>% 
-    add_column(life_stage = ids)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID, 
+               names_to = "samples", 
+               values_to = "expression") %>% 
+  add_column(life_stage = ids)
 p2 <- ggplot(log2.cpm.df.pivot) +
-    aes(x=samples, y=expression, fill=life_stage) +
-    geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="log2 expression", x = "sample",
-         title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="unfiltered, non-normalized, Batch iL3_extended",
-         caption="RNA-seq Dataset: Batch iL3_extended") +
-    theme_bw() +
-    coord_flip()
+  aes(x=samples, y=expression, fill=life_stage) +
+  geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="log2 expression", x = "sample",
+       title="S. venezuelensis: Log2 Counts per Million (CPM)",
+       subtitle="unfiltered, non-normalized, Batch iL3_extended",
+       caption="RNA-seq Dataset: Batch iL3_extended") +
+  theme_bw() +
+  coord_flip()
 ```
 
 ### Plot of unfiltered, non-normalized log2CPM data by life stage  
@@ -831,35 +862,35 @@ p2 <- ggplot(log2.cpm.df.pivot) +
 ```{r iL3.extended.preprocessing.4}
 p2
 keepers <- cpm(myDGEList) %>%
-    rowSums(.>1)>=1
+  rowSums(.>1)>=1
 myDGEList.filtered <- myDGEList[keepers,]
 ids.filtered <- rep(cbind(targets$group), 
                     times = nrow(myDGEList.filtered)) %>%
-    as_factor()
+  as_factor()
 
 log2.cpm.filtered.df.pivot <- cpm(myDGEList.filtered, log=TRUE) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.filtered)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.filtered)
 
 p3 <- ggplot(log2.cpm.filtered.df.pivot) +
-    aes(x=samples, y=expression, fill=life_stage) +
-    geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="log2 expression", x = "sample",
-         title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="filtered, non-normalized, Batch iL3_extended",
-         caption="RNA-seq Dataset: Batch iL3_extended") +
-    theme_bw() +
-    coord_flip()
+  aes(x=samples, y=expression, fill=life_stage) +
+  geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="log2 expression", x = "sample",
+       title="S. venezuelensis: Log2 Counts per Million (CPM)",
+       subtitle="filtered, non-normalized, Batch iL3_extended",
+       caption="RNA-seq Dataset: Batch iL3_extended") +
+  theme_bw() +
+  coord_flip()
 ```
 
 ### Plot of filtered, non-normalized log2CPM data by life stage  
@@ -871,32 +902,32 @@ myDGEList.discarded <- myDGEList[!keepers,]
 
 ids.discarded <- rep(cbind(targets$group), 
                      times = nrow(myDGEList.discarded)) %>%
-    as_factor()
+  as_factor()
 
 log2.cpm.discarded.df.pivot <- cpm(myDGEList.discarded, log=F) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.discarded)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.discarded)
 
 p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
-    aes(x=samples, y=expression, color=life_stage) +
-    #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
-    geom_jitter(alpha = 0.3, show.legend = T)+
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="expression", x = "sample",
-         title="S. venezuelensis: Counts per Million (CPM)",
-         subtitle="genes excluded by low count filtering step, non-normalized, Batch iL3_extended",
-         caption="RNA-seq Dataset: Batch iL3_extended") +
-    theme_bw() +
-    coord_flip()
+  aes(x=samples, y=expression, color=life_stage) +
+  #geom_violin(trim = FALSE, show.legend = T, alpha= 0.7) +
+  geom_jitter(alpha = 0.3, show.legend = T)+
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="expression", x = "sample",
+       title="S. venezuelensis: Counts per Million (CPM)",
+       subtitle="genes excluded by low count filtering step, non-normalized, Batch iL3_extended",
+       caption="RNA-seq Dataset: Batch iL3_extended") +
+  theme_bw() +
+  coord_flip()
 ```
 
 ### Plot of genes discarded by low-copy filtering step  
@@ -911,38 +942,38 @@ p.discarded
 # gostplot(gost.res, interactive = T, capped = T)
 # Generate a matrix of discarded genes and their raw counts ----
 discarded.gene.df <- log2.cpm.discarded.df.pivot %>%
-    pivot_wider(names_from = c(life_stage, samples), 
-                names_sep = "-", 
-                values_from = expression, 
-                id_cols = geneID)
+  pivot_wider(names_from = c(life_stage, samples), 
+              names_sep = "-", 
+              values_from = expression, 
+              id_cols = geneID)
 
 myDGEList.filtered.norm <- calcNormFactors(myDGEList.filtered, method = "TMM")
 log2.cpm.filtered.norm <- cpm(myDGEList.filtered.norm, log=TRUE) 
 
 log2.cpm.filtered.norm.df<- cpm(myDGEList.filtered.norm, log=TRUE) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample))
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample))
 
 log2.cpm.filtered.norm.df.pivot<-log2.cpm.filtered.norm.df %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.filtered)
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.filtered)
 p4 <- ggplot(log2.cpm.filtered.norm.df.pivot) +
-    aes(x=samples, y=expression, fill=life_stage) +
-    geom_violin(trim = FALSE, show.legend = T, alpha = 0.7) +
-    stat_summary(fun = "median", 
-                 geom = "point", 
-                 shape = 20, 
-                 size = 2, 
-                 color = "black", 
-                 show.legend = FALSE) +
-    labs(y="log2 expression", x = "sample",
-         title="S. venezuelensis: Log2 Counts per Million (CPM)",
-         subtitle="filtered, TMM normalized, Batch iL3_extended",
-         caption="RNA-seq Dataset: Batch iL3_extended") +
-    theme_bw() +
-    coord_flip()
+  aes(x=samples, y=expression, fill=life_stage) +
+  geom_violin(trim = FALSE, show.legend = T, alpha = 0.7) +
+  stat_summary(fun = "median", 
+               geom = "point", 
+               shape = 20, 
+               size = 2, 
+               color = "black", 
+               show.legend = FALSE) +
+  labs(y="log2 expression", x = "sample",
+       title="S. venezuelensis: Log2 Counts per Million (CPM)",
+       subtitle="filtered, TMM normalized, Batch iL3_extended",
+       caption="RNA-seq Dataset: Batch iL3_extended") +
+  theme_bw() +
+  coord_flip()
 ```
 
 ### Plot of filtered, normalized log2CPM data by life stage    
@@ -1033,7 +1064,7 @@ suppressPackageStartupMessages({
 # read in the study design 
 targets <- read_tsv(
   "../Data/S_venezuelensis/Study_Design/PRJDB3457_study_design.txt",
-                    na = c("", "NA", "na"))
+  na = c("", "NA", "na"))
 # create file paths to the abundance files generated by Kallisto 
 # using the 'file.path' function
 path <- file.path("../Data/S_venezuelensis/Reads",
@@ -1093,7 +1124,7 @@ load(file = file.path("../Data/S_venezuelensis",
 
 targets <- read_tsv(
   "../Data/S_venezuelensis/Study_Design/PRJDB3457_study_design.txt",
-                    na = c("", "NA", "na"))
+  na = c("", "NA", "na"))
 
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -1159,16 +1190,16 @@ print(paste('Low copy number filtering step excluded a total of',
 
 
 ids.discarded <- rep(cbind(targets$group), 
-                    times = nrow(myDGEList.discarded)) %>%
-    as_factor()
+                     times = nrow(myDGEList.discarded)) %>%
+  as_factor()
 
 log2.cpm.discarded.df.pivot <- cpm(myDGEList.discarded, log=F) %>%
-    as_tibble(rownames = "geneID") %>%
-    setNames(nm = c("geneID", targets$sample)) %>%
-    pivot_longer(cols = -geneID,
-                 names_to = "samples",
-                 values_to = "expression") %>%
-    add_column(life_stage = ids.discarded)
+  as_tibble(rownames = "geneID") %>%
+  setNames(nm = c("geneID", targets$sample)) %>%
+  pivot_longer(cols = -geneID,
+               names_to = "samples",
+               values_to = "expression") %>%
+  add_column(life_stage = ids.discarded)
 
 # Save matrix of discarded genes and their raw counts
 discarded.gene.df <- log2.cpm.discarded.df.pivot %>%
@@ -1218,8 +1249,8 @@ colnames(myDGEList.filtered.norm$counts) <- targets$group
 
 v.DEGList.filtered.norm.withtechreplicates <- voom(
   counts = myDGEList.filtered.norm, 
-                                design = design,
-                                plot = T)
+  design = design,
+  plot = T)
 colnames(v.DEGList.filtered.norm.withtechreplicates$E) <- targets$group
 
 # Condense data by replacing within-experiment technical 

@@ -13,7 +13,7 @@ output:
 The goal of this file is to pre-process the *Strongyloides ratti* RNA-seq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
 
 # Pre-processing Methods Overview 
-Raw reads are aligned to the *S. ratti* reference transcriptome (PRJEB125.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_ratti_prjeb125/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. stercoralis*), and a reference member of the out-group (*S. papillosus*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data could be saved as a digitial gene expression list if desired (not currently done).   
+Raw reads are aligned to the *S. ratti* reference transcriptome (PRJEB125.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_ratti_prjeb125/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. stercoralis*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data could be saved as a digitial gene expression list if desired (not currently done).   
 
 Raw reads were quantified as counts per million using the EdgeR package, then filtered to remove transcripts with low counts (less than 1 count-per-million in at least 1 sample). A list of discarded genes and their expression values across life stages is saved. Non-discarded gene values are normalized using the trimmed mean of M-values method (TMM, [Robinson and Oshlack](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25) ) to permit between-samples comparisons. The mean-variance relationship was modeled using a precision weights approach [Law *et al* 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). This dataset includes technical replicates; after voom modeling, data are condensed by replacing within-experiment technical replicates with their average, using the `limma:avearrays` function.  
 
@@ -156,6 +156,7 @@ Import gene annotation information for *S. ratti* genes, including:
   * *C. elegans* homologs/percent homology
   * *S. stercoralis* homologs/percent homology
   * *S. papillosus* homologs/percent homology
+  * *S. venezuelensis* homologs/percent homology
   * UniProtKB number
   * Interpro terms
   * GO terms
@@ -166,7 +167,8 @@ Import gene annotation information for *S. ratti* genes, including:
 # This chunk imports gene annotation information for S. ratti genes, including:
 # C. elegans homologs/percent homology,  
 # S. stercoralis homologs/percent homology, 
-# S. papillosus homologs/percent homology, 
+# S. papillosus homologs/percent homology,
+# S. venezuelensis homologs/percent homology, 
 # UniProtKB number, Interpro terms, GO terms, 
 # and general Description information using biomart.
 # It will generate a table that can be saved.
@@ -207,7 +209,7 @@ Annt.temp.1 <- getBM(attributes=c('wbps_transcript_id',
   ) %>%
   dplyr::group_by(geneID)
 
-# Get Out-subclade group homologs for S. ratti 
+# Get first out-subclade group homologs for S. ratti 
 # genes from BioMart and filter -----
 Annt.temp.2 <- getBM(attributes=c('wbps_transcript_id', 
                                   'stpapiprjeb525_gene',
@@ -228,9 +230,30 @@ Annt.temp.2 <- getBM(attributes=c('wbps_transcript_id',
   ) %>%
   dplyr::group_by(geneID)
 
+# Get second out-subclade group homologs for S. ratti 
+# genes from BioMart and filter -----
+Annt.temp.3 <- getBM(attributes=c('wbps_gene_id', 
+                                  'stveneprjeb530_gene',
+                                  'stveneprjeb530_homolog_perc_id'
+                                  ),
+                     # grab the ensembl annotations for Wormbase Parasite genes
+                     mart = useMart(biomart="parasite_mart", 
+                                    dataset = "wbps_gene", 
+                                    host="https://parasite.wormbase.org", 
+                                    port = 443),
+                     filters = c('species_id_1010'),
+                     value = list('strattprjeb125')) %>%
+  as_tibble() %>%
+  #rename columns 
+  dplyr::rename(geneID = wbps_gene_id,
+                Out2.subclade_geneID = stveneprjeb530_gene,
+                Out2.subclade_percent_homology= stveneprjeb530_homolog_perc_id
+  ) %>%
+  dplyr::group_by(geneID)
+
 # Get C. elegans homologs and gene information for S. ratti 
 # genes from BioMart and filter -----
-Annt.temp.3 <- getBM(attributes=c('wbps_transcript_id', 
+Annt.temp.4 <- getBM(attributes=c('wbps_transcript_id', 
                                   'wbps_gene_id',
                                   'caelegprjna13758_gene_name',
                                   'caelegprjna13758_homolog_perc_id',
@@ -260,7 +283,8 @@ Annt.temp.3 <- getBM(attributes=c('wbps_transcript_id',
   dplyr::group_by(geneID)
 
 Annt.import <- full_join(Annt.temp.1, Annt.temp.2, by = "geneID") %>%
-  full_join(Annt.temp.3, by = "geneID")
+  full_join(Annt.temp.3, by = "geneID") %>%
+  full_join(Annt.temp.4, by = "geneID")
 
 
 Annt.import$geneID <- str_remove_all(Annt.import$geneID, "\\.[0-9]$")
@@ -279,6 +303,8 @@ Annt.import$In.subclade_percent_homology[
   is.na(Annt.import$In.subclade_percent_homology)] <- 1000
 Annt.import$Out.subclade_percent_homology[
   is.na(Annt.import$Out.subclade_percent_homology)] <- 1000
+Annt.import$Out2.subclade_percent_homology[
+  is.na(Annt.import$Out2.subclade_percent_homology)] <- 1000
 
 Annt.logs <-Annt.import %>%
   dplyr::select(!c(interpro_short_description:GO_term))%>%
@@ -288,6 +314,8 @@ Annt.logs <-Annt.import %>%
   slice_max(n = 1, order_by = In.subclade_percent_homology,
             with_ties = FALSE) %>%
   slice_max(n = 1, order_by = Out.subclade_percent_homology, 
+            with_ties = FALSE) %>%
+  slice_max(n = 1, order_by = Out2.subclade_percent_homology, 
             with_ties = FALSE) %>%
   group_by(geneID, Ce_geneID) 
 
@@ -304,6 +332,8 @@ Annt.logs$In.subclade_percent_homology[
   Annt.logs$In.subclade_percent_homology == 1000]<- NA
 Annt.logs$Out.subclade_percent_homology[
   Annt.logs$Out.subclade_percent_homology == 1000]<- NA
+Annt.logs$Out2.subclade_percent_homology[
+  Annt.logs$Out2.subclade_percent_homology == 1000]<- NA
 
 # Clean up interprotKB terms, removing duplications and collapsing to one line
 Annt.interpro<-Annt.import %>%
@@ -326,6 +356,8 @@ annotations<-dplyr::left_join(Annt.logs, Annt.interpro) %>%
                   In.subclade_percent_homology, 
                   Out.subclade_geneID, 
                   Out.subclade_percent_homology, 
+                  Out2.subclade_geneID, 
+                  Out2.subclade_percent_homology, 
                   .after = geneID) %>%
   column_to_rownames(var = "geneID")
 
