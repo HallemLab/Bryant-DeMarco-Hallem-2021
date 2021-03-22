@@ -1,5 +1,5 @@
 # Strongyloides RNA-seq Browser Preprocessing and Analysis 
-Preprocessing and analysis related to the [*Strongyloides* RNA-seq Browser](hallemlab.shinyapps.io/strongyloides_rnaseq_browser/), a web-based Shiny App for browsing and on-demand analysis of *Strongyloides spp.* RNA-seq datasets.
+Preprocessing and analysis related to the [*Strongyloides* RNA-seq Browser](https://hallemlab.shinyapps.io/Strongyloides_RNAseq_Browser/), a web-based Shiny App for browsing and on-demand analysis of *Strongyloides spp.* RNA-seq datasets.
 
 ## Table of Contents  
 1. [General Information](#general-information)
@@ -26,7 +26,7 @@ This folder contains supplemental figures and files from the manuscript of Bryan
 This folder contains an RMarkdown file and cache that tests for differential expression on longitudinal data using the ImpulseDE2 package. The ImpulseDE2 method contrasts with DE algorithms such as limma that treat time points independently. Instead, ImpulseDE2 seeks to identify genes that display specific trajectories of differential gene expression over time. An Impulse model is designed to capture 4 different expression trajectories: monotonous decrease, monotonous increase, transient decrease (valley), and transient increase (peak). The analysis included in this folder specifically tests an implementation of ImpulseDE2 analysis on a subset of the *S. stercoralis* dataset: life stages FLF, PF, iL3, iL3a.  
 
 ## App Access
-To access a stable deployment of the *Strongyloides* RNA-seq Browser Web App, please visit: [hallemlab.shinyapps.io/strongyloides_rnaseq_browser/](hallemlab.shinyapps.io/strongyloides_rnaseq_browser/)  
+To access a stable deployment of the *Strongyloides* RNA-seq Browser Web App, please visit: [hallemlab.shinyapps.io/strongyloides_rnaseq_browser/](https://hallemlab.shinyapps.io/Strongyloides_RNAseq_Browser/)  
 
 To view full source code for the *Strongyloides* RNA-seq Browser, please visit the [app repository](https://github.com/HallemLab/Strongyloides_RNAseq_Browser). 
 
