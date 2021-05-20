@@ -1,0 +1,13 @@
+{
+	"n_targets": 13098,
+	"n_bootstraps": 0,
+	"n_processed": 50381831,
+	"n_pseudoaligned": 45177388,
+	"n_unique": 44941233,
+	"p_pseudoaligned": 89.7,
+	"p_unique": 89.2,
+	"kallisto_version": "0.46.2",
+	"index_version": 10,
+	"start_time": "Fri Aug 14 10:02:11 2020",
+	"call": "kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o ERR146947 -t 14 ERR146947_1.fastq.gz ERR146947_2.fastq.gz"
+}
