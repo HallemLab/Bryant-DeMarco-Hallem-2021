@@ -9,7 +9,7 @@ Preprocessing and analysis related to the [*Strongyloides* RNA-seq Browser](http
 5. [Authors](#authors)
 
 ## General Information
-This repository contains non-responsive code for the pre-processing and analysis for *Strongyloides spp* RNA-seq datasets. Preprocessed data is used as inputs for the *Strongyloides* RNA-seq Browser, a Shiny Web App for on-demand browsing and analysis of published bulk *Strongyloides* RNA-seq data.  It also contains analysis code used to generate results discussed in Bryant, DeMarco, and Hallem (2021). [A preprint version of the manuscript is available on bioRxiv.](https://www.biorxiv.org/content/10.1101/2021.02.18.431867v1)
+This repository contains non-responsive code for the pre-processing and analysis for *Strongyloides spp* RNA-seq datasets. Preprocessed data is used as inputs for the *Strongyloides* RNA-seq Browser, a Shiny Web App for on-demand browsing and analysis of published bulk *Strongyloides* RNA-seq data.  It also contains analysis code used to generate results discussed in Bryant, DeMarco, and Hallem (2021). [A preprint version of the manuscript is available on bioRxiv.](https://www.biorxiv.org/content/10.1101/2021.02.18.431867v1). A final version of this manuscript is [published in G3](https://pubmed.ncbi.nlm.nih.gov/33823530/).
 
 The sections below describe the contents of the primary subfolders within this repository.
 
