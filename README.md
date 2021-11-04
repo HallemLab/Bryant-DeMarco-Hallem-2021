@@ -38,7 +38,7 @@ To view full source code for the *Strongyloides* RNA-seq Browser, please visit t
 * [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) - Gene set enrichment analysis
 * *Strongyloides* RNA-seq datasets:
   - [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854)
-  - [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)
+  - [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)
   - [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495)
   - [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)
 * [WormbaseParasite](https://parasite.wormbase.org/index.html) - Gene annotations and reference transcriptomes
@@ -53,4 +53,4 @@ This project is licensed under the MIT License.
 * [Elissa Hallem, PhD](https://github.com/ehallem)
 
 ## Update Notes
-Updated by A.S.B. on approximately 11-3-21 to include *S. stercoralis* free-living male RNA-seq data published by Akimori *et al* 2021. 
+Updated by A.S.B. on approximately 11-3-21 to include *S. stercoralis* free-living male RNA-seq data published by Gonzalez Akimori *et al* 2021. 

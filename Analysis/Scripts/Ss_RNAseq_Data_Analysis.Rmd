@@ -633,7 +633,7 @@ LS.datatable
 ```
 
 ## Benchmarking
-This section compares potential results to published analsyses. Here, we use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages. We also include Supplementary Dataset 3 from [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3), which includes the results of edgeR differential gene expression analysis between free-living males and free-living females.  
+This section compares potential results to published analsyses. Here, we use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages. We also include Supplementary Dataset 3 from [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3), which includes the results of edgeR differential gene expression analysis between free-living males and free-living females.  
 ```{r benchmarkingHunt}
 
 suppressPackageStartupMessages({
@@ -788,20 +788,20 @@ as_tibble(res.aov3$`condition:life_stage`, rownames = "comparison") %>%
   unite(comparison, temp1, temp2, sep = "-")
 ```
 
-### Comparing LogFC between Browser and Akimori Dataset
+### Comparing LogFC between Browser and Gonzalez Akimori Dataset
 
-```{r benchmarkingAkimori}
+```{r benchmarkingGonzalezAkimori}
 
 suppressPackageStartupMessages({
   library(openxlsx)
   library(tidyverse)
   library(ggplot2)
 })
-# Load Akimori Dataset: FLM vs FLF comparison
+# Load Gonzalez Akimori Dataset: FLM vs FLF comparison
 temp.dat <-  read.xlsx ("../Data/Benchmarking/41598_2021_87478_MOESM3_ESM.xlsx", 
                         sheet = 1, startRow = 1)
 
-Akimori.dat <- tibble(geneID = temp.dat$genes, logFC = temp.dat$log2.Fold.Change)%>%
+GonzalezAkimori.dat <- tibble(geneID = temp.dat$genes, logFC = temp.dat$log2.Fold.Change)%>%
   mutate(geneID = str_remove(geneID, "gene:"))
 rm(temp.dat)
 
@@ -809,34 +809,34 @@ rm(temp.dat)
 Browser.dat <- list.myTopHits.df$`(FLM)-(FLF)` %>%
   dplyr::select(geneID, logFC)
 
-print(paste('Total number of genes in Akimori *et al* 2021 FLM vs FLF comparison tab:',nrow(Akimori.dat)))
+print(paste('Total number of genes in Gonzalez Akimori *et al* 2021 FLM vs FLF comparison tab:',nrow(GonzalezAkimori.dat)))
 print(paste('Total number of genes in Str-RNA-seq Browser FLM vs FLF output file:', nrow(Browser.dat))) 
 
 
-plotting.all <- inner_join(Browser.dat, Akimori.dat, by = "geneID")
-plotting.BrowserOnly <- anti_join(Browser.dat, Akimori.dat, by = "geneID")
+plotting.all <- inner_join(Browser.dat, GonzalezAkimori.dat, by = "geneID")
+plotting.BrowserOnly <- anti_join(Browser.dat, GonzalezAkimori.dat, by = "geneID")
 
-# The plot below takes the genes with LogFC results in both the Browser and Akimori databases, and plots the two sets against each other. 
+# The plot below takes the genes with LogFC results in both the Browser and Gonzalez Akimori databases, and plots the two sets against each other. 
 linearMod <- lm(logFC.y ~ logFC.x, data = plotting.all) %>%
   summary()
 
 p.benchmarkFLM <- ggplot(plotting.all, aes(x = logFC.x, y = logFC.y)) +
   geom_smooth(method=lm, color = 'red', formula = "y ~ x") +
   geom_point(shape=16, size=3, alpha = 0.8) +
-  labs(title = "S. stercoralis: Str-Browser vs Akimori Data",
+  labs(title = "S. stercoralis: Str-Browser vs Gonzalez Akimori Data",
        subtitle = "FLM vs FLF",
        caption = paste("points = genes; red line/shading = linear regression \n",
                        "w/ 95% confidence regions (formula = y ~ x). \n",
                        "Adj R-squared =",
                        round(linearMod$adj.r.squared,3)),
        x = "Str-Browser LogFC",
-       y = "Akimori LogFC") +
+       y = "Gonzalez Akimori LogFC") +
   coord_equal() +
   theme_bw() +
   theme(text = element_text(size = 10),
         title = element_text(size = 10))
 
-print("Linear regression of Browser vs Akimori LogFC results:")
+print("Linear regression of Browser vs Gonzalez Akimori LogFC results:")
 (linearMod)
 
 suppressMessages(ggsave("Ss_Benchmarking_FLM.pdf",

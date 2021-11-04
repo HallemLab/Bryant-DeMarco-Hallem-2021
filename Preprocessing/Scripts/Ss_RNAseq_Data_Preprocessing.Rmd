@@ -12,7 +12,7 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq datasets originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3). 
+The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq datasets originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3). 
 
 ## Update Notes
 RNA-seq expression data for *S. stercoralis* free-living males added by A.S.B. on/near 11-3-21.

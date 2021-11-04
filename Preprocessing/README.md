@@ -13,7 +13,7 @@ RNA-seq expression data for *S. stercoralis* free-living males added by A.S.B. o
 4. [*S. venezuelensis*](#s-venezuelensis)
 
 ## *S. stercoralis*  
-The *S. stercoralis* datasets included in this repository were originaly published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3).  
+The *S. stercoralis* datasets included in this repository were originaly published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3).  
 
 ### Data Sources and Details 
 Raw reads were downloaded from the European Nucleotide Archive - study accession numbers [PRJEB3116](https://www.ebi.ac.uk/ena/browser/view/PRJEB3116) and [PRJNA689252](https://www.ebi.ac.uk/ena/browser/view/PRJNA689252). These two datasets consist of 24 samples, representing 8 life stages with 3 biological replicates for each life stage:
@@ -27,7 +27,7 @@ Raw reads were downloaded from the European Nucleotide Archive - study accession
   * Post-parasitic 3rd stage larvae (ppL3)
   * Post-free-living 1st stage larvae (pfL1)
   
-Note: samples included in this database were sequenced in two separate runs, with FLM in one, and all other samples in another. However, the libraries were constructed at the same time and were sequenced using the same chemistry/equipment, just at an earlier date. Thus, batch effects should be minimal (see [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)).  
+Note: samples included in this database were sequenced in two separate runs, with FLM in one, and all other samples in another. However, the libraries were constructed at the same time and were sequenced using the same chemistry/equipment, just at an earlier date. Thus, batch effects should be minimal (see [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)).  
 
 ### Kallisto Alignment and Gene Annotation  
 Kallisto was used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Since FLM RNA-seq data was added after initial release of the browser, Kallisto alignment was performed separately for these samples. Kallisto alignments are imported into the R environment using `Tximport`. Counts are generated from abundance files using the `lengthScaledTPM` option; an R object containing this data is saved into each species' subfolder in the primary Data folder. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
