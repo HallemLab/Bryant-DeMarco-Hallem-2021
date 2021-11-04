@@ -1,6 +1,8 @@
 ---
 title: Pre-processing of *Strongyloides stercoralis* bulk RNA-seq via an alignment-free
   analysis pipeline
+author: "Astra S. Bryant, PhD"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
     df_print: paged
@@ -10,7 +12,10 @@ output:
 ---
 
 # Introduction
-The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq dataset originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854). 
+The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq datasets originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3). 
+
+## Update Notes
+RNA-seq expression data for *S. stercoralis* free-living males added by A.S.B. on/near 11-3-21.
 
 # Pre-processing Methods Overview  
 Kallisto and custom R scripts were used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. ratti*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is be saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: raw count data could be saved as a digitial gene expression list if desired (not currently done).  
@@ -28,6 +33,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 ## Kallisto read mapping  
 This shell script checks the qualitiy of the fastq files and performs an alignment to the *Strongyloides stercoralis* transcriptome reference with Kallisto. To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer. For addditional instructions, see comments at head of script. 
+Note: Since FLM RNA-seq data was added after initial release of the browser, Kallisto alignment was performed separately for these samples.
 ```{bash KallistoMapping, eval=FALSE}
 # This script checks the qualitiy of the fastq files and performs 
 # an alignment to the S. stercoralis transcriptome reference with Kallisto.
@@ -112,8 +118,42 @@ multiqc -d .
 echo "Finished"
 ```
 
+```{bash KallistoMappingFLM, eval=FALSE}
+# This script checks the qualitiy of the fastq files for free-living males and performs 
+# an alignment to the S. stercoralis transcriptome reference with Kallisto.
+# To run this 'shell script' you will need to open your terminal and 
+# navigate to the directory where this script resides on your computer.
+# This should be the same directory where you fastq files and reference 
+# fasta file are found.
+
+# Change permissions on your computer so that you can run a 
+# shell script by typing: 'chmod u+x readMapping_FLM.sh' (without the quotes) 
+# at the terminal prompt 
+# Then type './readMapping_FLM.sh' (without the quotes) at the prompt.  
+# This will begin the process of running each line of code in the shell script.
+
+# This script adds Kallisto alignment of free-living male samples, and thus assumes
+# users have already constructed a Kallisto index file previously. 
+
+# first use fastqc to check the quality of our fastq files:
+fastqc *.gz -t 14
+
+# Free-living Males
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
+SRR13343624 -t 14 SRR13343624_1.fastq.gz SRR13343624_2.fastq.gz&> SRR13343624.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
+SRR13343625 -t 14 SRR13343625_1.fastq.gz SRR13343625_2.fastq.gz&> SRR13343624.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
+SRR13343626 -t 14 SRR13343626_1.fastq.gz SRR13343626_2.fastq.gz&> SRR13343624.log
+
+# summarize fastqc and kallisto mapping results using MultiQC
+multiqc -d . 
+
+echo "Finished"
+```
+
 ## Import Kallisto reads into R  
-Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).    
+Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
 ```{r txImport, eval=FALSE}
 # load packages ----
 suppressPackageStartupMessages({
@@ -124,7 +164,7 @@ suppressPackageStartupMessages({
   library(magrittr)
 })
 # read in the study design ----
-targets <- read_tsv("../Data/S_stercoralis/Study_Design/PRJEB3116_study_design.txt",
+targets <- read_tsv("../Data/S_stercoralis/Study_Design/SstercoralisRNAseq_study_design.txt",
                     na = c("", "NA", "na"))
 # create file paths to the abundance files generated by Kallisto 
 # using the 'file.path' function
@@ -196,13 +236,6 @@ suppressPackageStartupMessages({
   library(biomaRt)
   library(magrittr)
 })
-
-# Load data & study design ----
-load(file = file.path("../Data/S_stercoralis",
-                      "SsRNAseq_TPM"))
-
-targets <- read_tsv("../Data/S_stercoralis/Study_Design/PRJEB3116_study_design.txt",
-                    na = c("", "NA", "na"))
 
 # Get In-subclade group homologs for S. stercoralis 
 # genes from BioMart and filter -----
@@ -390,6 +423,13 @@ suppressPackageStartupMessages({
   library(gprofiler2)
 })
 
+# Load data & study design ----
+load(file = file.path("../Data/S_stercoralis",
+                      "SsRNAseq_TPM"))
+
+targets <- read_tsv("../Data/S_stercoralis/Study_Design/SstercoralisRNAseq_study_design.txt",
+                    na = c("", "NA", "na"))
+
 # Generate and plot summary stats for the data ----
 myTPM.stats <- transform(Txi_gene$abundance, 
                          SD=rowSds(Txi_gene$abundance), 
@@ -405,7 +445,7 @@ p1<-ggplot(myTPM.stats) +
   labs(y="Median", x = "Standard deviation",
        title = "S. stercoralis: Transcripts per million (TPM)",
        subtitle="unfiltered, non-normalized data",
-       caption="S. stercoralis Stoltzfus RNA-seq Dataset") +
+       caption="S. stercoralis RNA-seq Datasets") +
   theme_bw()
 p1
 
@@ -570,7 +610,7 @@ p.discarded <- ggplot(log2.cpm.discarded.df.pivot) +
 ```
 
 ### Plot of genes discarded by low-copy filtering step  
-The low copy number filtering step excluded a total of `dim(myDGEList.discarded)[[1]]` genes.  
+The low copy number filtering step excluded a total of `r dim(myDGEList.discarded)[[1]]` genes.  
 
 ```{r dataWrangling.4}
 p.discarded

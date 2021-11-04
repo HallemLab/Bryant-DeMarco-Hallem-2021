@@ -30,7 +30,7 @@ The `limma` package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/256
 ## Benchmarking
 Next, we benchmark the results of our differential gene expression analysis against a published analsysis:
 
-  * *S. stercoralis*: We use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages.  
+  * *S. stercoralis*: We use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages. We also include Supplementary Dataset 3 from [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3), which includes the results of edgeR differential gene expression analysis between free-living males and free-living females.   
   * *S. ratti*: We use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages.  
   * *S. papillosus*: Tables with data suitable for benchmarking are not currently available.  
   * *S. venezuelensis*: We use Supplementary Table 1 from [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z), which includes the results of edgeR differential gene expression analysis between free living females and parasitic females. Note that we manually adjust the geneID names in Table S1 in order to match current Wormbase ParaSite nomenclature, such that 'SVE_' is used instead of 'SVEN_'.  

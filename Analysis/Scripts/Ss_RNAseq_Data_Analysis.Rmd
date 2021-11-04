@@ -1,5 +1,7 @@
 ---
 title: Offline Data Analysis of *Strongyloides stercoralis* bulk RNA-seq data
+author: "Astra S. Bryant, PhD"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   html_document:
     code_folding: hide
@@ -15,9 +17,12 @@ output:
 A full inforuction to the project and a description of Kallisto alignment and data filtering/normalization steps can be found in `Ss_RNAseq_Data_Preprocessing.rmd`. 
 
 ## Data Analysis   
-Principal component analysis applied to filtered and TMM-normalized expression data identified two developmental clusters that account for 42.6% and 28.9% of expression variability between *S. stercoralis* developmental stages. 
+Principal component analysis applied to filtered and TMM-normalized expression data identified two developmental clusters that account for 34.5% and 26.3% of expression variability between *S. stercoralis* developmental stages. 
 
 The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605792/), [Phipson *et al* 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5373812/)) is used to conduct pairwise differential gene expression analyses between life stages. An example pairwise comparisons between two life stages is displayed as a volcano plot and interactive DataTable. 
+
+## Update Notes
+This code was updated on approximately 11-3-21 by A.S.B., adding *S. stercoralis* free-living male RNA-seq expression data.
 
 # Code
 All code is echoed under descriptive headers; code chunks are hidden from view by default. Users may show hidden R code by clicking the Show buttons. In addition, all code chunks are collated at the end of the document in an Appendix.  
@@ -156,14 +161,12 @@ p3<-ggplot(pca.res.df) +
   ) +
   geom_point(size=4,  color = "black") +
   scale_colour_manual(values = 
-                      c("#68C3A6", "#8DA0CA", "#A69CCC",
-                      "#E38CBB", "#A6D056", "#FED82F",
-                      "#E4C494"),
+                      c("#68C3A6", "#F68D64", "#8DA0CA", "#A69CCC",
+                      "#E38CBB", "#A6D056", "#FED82F", "#E4C494"),
                     aesthetics = c("colour", "fill")) +
   scale_shape_manual(values = 
-                       c(21, 21, 22,
-                         23, 21, 22,
-                         23)) +
+                       c(21, 22, 21, 22,
+                         23, 21, 22, 23)) +
   xlab(paste0("PC1 (",pc.per[1],"%",")")) + 
   ylab(paste0("PC2 (",pc.per[2],"%",")")) +
   labs(title="Principal Components Analysis of S. stercoralis RNA-seq Samples",
@@ -222,9 +225,8 @@ p6<-ggplot(pca.pivot) +
   aes(x=sample, y=loadings) + # you could iteratively 'paint' different covariates onto this plot using the 'fill' aes
   geom_bar(stat="identity") +
   scale_fill_manual(values = 
-                      c("#68C3A6", "#8DA0CA", "#A69CCC",
-                      "#E38CBB", "#A6D056", "#FED82F",
-                      "#E4C494")) +
+                      c("#68C3A6", "#F68D64", "#8DA0CA", "#A69CCC",
+                      "#E38CBB", "#A6D056", "#FED82F", "#E4C494")) +
   facet_wrap(~PC, labeller = labeller(PC = PC.labs)) +
   geom_bar(data = PC1, stat = "identity", aes(fill = group)) +
   geom_bar(data = PC2, stat = "identity", aes(fill = group)) +
@@ -375,7 +377,7 @@ fit <- lmFit(v.DEGList.filtered.norm, design)
 # iL3s vs FLF
 # Note that the target/contrast goups will be divided by the number of life 
 # stage groups e.g. PF+FLF/2 - iL3+iL3a+pfL1+ppL1+ppL3/5
-comparison <- c('(iL3)-(FLF)')
+comparison <- c('(iL3)-(FLF)', '(FLM)-(FLF)')
 
 targetStage<- comparison %>%
   str_split(pattern="-", simplify = T) %>%
@@ -417,7 +419,7 @@ ebFit <- eBayes(fits)
 
 # Pull out the DEGs that pass a specific threshold for all pairwise comparisons ----
 # Adjust for multiple comparisons using method = global. 
-results <- decideTests(ebFit, method="global", adjust.method="BH", p.value = adj.P.thresh)
+results <- decideTests(ebFit, method="separate", adjust.method="BH", p.value = adj.P.thresh)
 
 recode01<- function(x){
   case_when(x == 1 ~ "Up",
@@ -631,8 +633,8 @@ LS.datatable
 ```
 
 ## Benchmarking
-This section compares potential results to a published analsysis. Here, we use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages.  
-```{r benchmarking}
+This section compares potential results to published analsyses. Here, we use Supplementary Table 5 from [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495), which includes the results of edgeR differential gene expression analysis between multiple life stages. We also include Supplementary Dataset 3 from [Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3), which includes the results of edgeR differential gene expression analysis between free-living males and free-living females.  
+```{r benchmarkingHunt}
 
 suppressPackageStartupMessages({
   library(openxlsx)
@@ -729,9 +731,8 @@ p.cpm_all <- ggplot(cpm.all) +
                 fill = "grey") +
     geom_violin(trim = FALSE, show.legend = T, alpha = 0.7) +
    scale_fill_manual(values = 
-                      c("#68C3A6", "#A69CCC","#8DA0CA",
-                       "#A6D056", "#FED82F",
-                      "#E4C494","#E38CBB" )) +
+                      c("#68C3A6", "#F68D64", "#8DA0CA", "#A69CCC",
+                      "#E38CBB", "#A6D056", "#FED82F", "#E4C494")) +
     stat_summary(data = cpm.BrowserOnly,
                  fun = "median", 
                  geom = "point", 
@@ -787,6 +788,70 @@ as_tibble(res.aov3$`condition:life_stage`, rownames = "comparison") %>%
   unite(comparison, temp1, temp2, sep = "-")
 ```
 
+### Comparing LogFC between Browser and Akimori Dataset
+
+```{r benchmarkingAkimori}
+
+suppressPackageStartupMessages({
+  library(openxlsx)
+  library(tidyverse)
+  library(ggplot2)
+})
+# Load Akimori Dataset: FLM vs FLF comparison
+temp.dat <-  read.xlsx ("../Data/Benchmarking/41598_2021_87478_MOESM3_ESM.xlsx", 
+                        sheet = 1, startRow = 1)
+
+Akimori.dat <- tibble(geneID = temp.dat$genes, logFC = temp.dat$log2.Fold.Change)%>%
+  mutate(geneID = str_remove(geneID, "gene:"))
+rm(temp.dat)
+
+# Rename Results of FLM vs FLF comparison from Browser
+Browser.dat <- list.myTopHits.df$`(FLM)-(FLF)` %>%
+  dplyr::select(geneID, logFC)
+
+print(paste('Total number of genes in Akimori *et al* 2021 FLM vs FLF comparison tab:',nrow(Akimori.dat)))
+print(paste('Total number of genes in Str-RNA-seq Browser FLM vs FLF output file:', nrow(Browser.dat))) 
+
+
+plotting.all <- inner_join(Browser.dat, Akimori.dat, by = "geneID")
+plotting.BrowserOnly <- anti_join(Browser.dat, Akimori.dat, by = "geneID")
+
+# The plot below takes the genes with LogFC results in both the Browser and Akimori databases, and plots the two sets against each other. 
+linearMod <- lm(logFC.y ~ logFC.x, data = plotting.all) %>%
+  summary()
+
+p.benchmarkFLM <- ggplot(plotting.all, aes(x = logFC.x, y = logFC.y)) +
+  geom_smooth(method=lm, color = 'red', formula = "y ~ x") +
+  geom_point(shape=16, size=3, alpha = 0.8) +
+  labs(title = "S. stercoralis: Str-Browser vs Akimori Data",
+       subtitle = "FLM vs FLF",
+       caption = paste("points = genes; red line/shading = linear regression \n",
+                       "w/ 95% confidence regions (formula = y ~ x). \n",
+                       "Adj R-squared =",
+                       round(linearMod$adj.r.squared,3)),
+       x = "Str-Browser LogFC",
+       y = "Akimori LogFC") +
+  coord_equal() +
+  theme_bw() +
+  theme(text = element_text(size = 10),
+        title = element_text(size = 10))
+
+print("Linear regression of Browser vs Akimori LogFC results:")
+(linearMod)
+
+suppressMessages(ggsave("Ss_Benchmarking_FLM.pdf",
+                        plot = p.benchmarkFLM,
+                        device = "pdf",
+                        height = 4,
+                        #width = 8,
+                        path = output.path))
+
+```
+
+``` {r}
+p.benchmarkFLM 
+
+```
 
 <!-- # Cluster DEGs into functional modules --- -->
 ```{r heatmaps, eval=FALSE, include=FALSE}
@@ -844,7 +909,7 @@ clustColumns <- hclust(as.dist(1-cor(diffGenes.thresh,
 
 #Cut the resulting tree and create color vector for clusters.  
 module.assign <- stats::cutree(clustRows, k=14) #The diffGenes info is 
-based on a pairwise comparison between all 7 life stages. 
+#based on a pairwise comparison between all life stages. 
 
 # assign a color to each module (makes it easy to identify and manipulate)
 module.color <- rainbow(length(unique(module.assign)), start=0.1, end=0.9) 
