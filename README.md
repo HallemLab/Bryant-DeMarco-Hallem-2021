@@ -7,6 +7,7 @@ Preprocessing and analysis related to the [*Strongyloides* RNA-seq Browser](http
 3. [Sources](#sources)
 4. [License](#license)
 5. [Authors](#authors)
+6. [Update Notes](#update-notes)
 
 ## General Information
 This repository contains non-responsive code for the pre-processing and analysis for *Strongyloides spp* RNA-seq datasets. Preprocessed data is used as inputs for the *Strongyloides* RNA-seq Browser, a Shiny Web App for on-demand browsing and analysis of published bulk *Strongyloides* RNA-seq data.  It also contains analysis code used to generate results discussed in Bryant, DeMarco, and Hallem (2021). [A preprint version of the manuscript is available on bioRxiv.](https://www.biorxiv.org/content/10.1101/2021.02.18.431867v1). A final version of this manuscript is [published in G3](https://pubmed.ncbi.nlm.nih.gov/33823530/).
@@ -37,6 +38,7 @@ To view full source code for the *Strongyloides* RNA-seq Browser, please visit t
 * [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html) - Gene set enrichment analysis
 * *Strongyloides* RNA-seq datasets:
   - [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854)
+  - [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)
   - [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495)
   - [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z)
 * [WormbaseParasite](https://parasite.wormbase.org/index.html) - Gene annotations and reference transcriptomes
@@ -49,3 +51,6 @@ This project is licensed under the MIT License.
 * [Astra Bryant, PhD](https://github.com/astrasb)
 * [Stephanie DeMarco, PhD](https://github.com/sfdemarco)
 * [Elissa Hallem, PhD](https://github.com/ehallem)
+
+## Update Notes
+Updated by A.S.B. on approximately 11-3-21 to include *S. stercoralis* free-living male RNA-seq data published by Gonzalez Akimori *et al* 2021. 

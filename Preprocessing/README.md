@@ -3,6 +3,9 @@ RMarkdown files for each species (see Scripts subfolder) contain code for the al
 
 Our goal is to pre-process previously published RNA-seq datasets downloaded from online repositories for subsequent analysis by the Shiny web app. Use the sections below to view details for the pre-processing of each *Strongyloides spp.* dataset.  
 
+### Update Notes
+RNA-seq expression data for *S. stercoralis* free-living males added by A.S.B. on/near 11-3-21.
+
 ## Table of Contents  
 1. [*S. stercoralis*](#s-stercoralis)
 2. [*S. ratti*](#s-ratti)
@@ -10,21 +13,25 @@ Our goal is to pre-process previously published RNA-seq datasets downloaded from
 4. [*S. venezuelensis*](#s-venezuelensis)
 
 ## *S. stercoralis*  
-The *S. stercoralis* dataset included in this repository was originaly published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854).  
+The *S. stercoralis* datasets included in this repository were originaly published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3).  
 
 ### Data Sources and Details 
-Raw reads were downloaded from the European Nucleotide Archive - study accession number [PRJEB3116](https://www.ebi.ac.uk/ena/browser/view/PRJEB3116). This dataset consists of 21 samples, representing 7 life stages with 3 biological replicates for each life stage:
+Raw reads were downloaded from the European Nucleotide Archive - study accession numbers [PRJEB3116](https://www.ebi.ac.uk/ena/browser/view/PRJEB3116) and [PRJNA689252](https://www.ebi.ac.uk/ena/browser/view/PRJNA689252). These two datasets consist of 24 samples, representing 8 life stages with 3 biological replicates for each life stage:
 
   * Free-living adult females (FLF)
+  * Free-living adult males (FLM)
   * Parasitic adult females (PF)
   * Infective third-stage larvae (iL3)
   * Activated iL3s (iL3a)
   * Post-parasitic 1st stage larvae (ppL1)
   * Post-parasitic 3rd stage larvae (ppL3)
   * Post-free-living 1st stage larvae (pfL1)
+  
+Note: samples included in this database were sequenced in two separate runs, with FLM in one, and all other samples in another. However, the libraries were constructed at the same time and were sequenced using the same chemistry/equipment, just at an earlier date. Thus, batch effects should be minimal (see [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3)).  
 
 ### Kallisto Alignment and Gene Annotation  
-Kallisto was used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Kallisto alignments are imported into the R environment using `Tximport`. Counts are generated from abundance files using the `lengthScaledTPM` option; an R object containing this data is saved into each species' subfolder in the primary Data folder. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
+Kallisto was used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Since FLM RNA-seq data was added after initial release of the browser, Kallisto alignment was performed separately for these samples. Kallisto alignments are imported into the R environment using `Tximport`. Counts are generated from abundance files using the `lengthScaledTPM` option; an R object containing this data is saved into each species' subfolder in the primary Data folder. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
+
 Count data is then annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes:
 
   * *C. elegans* homologs/percent homology

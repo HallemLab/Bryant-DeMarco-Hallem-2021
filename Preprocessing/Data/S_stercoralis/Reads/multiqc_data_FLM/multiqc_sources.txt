@@ -1,0 +1,10 @@
+Module	Section	Sample Name	Source
+Kallisto	all_sections	SRR13343624_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343624.log
+Kallisto	all_sections	SRR13343625_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343625.log
+Kallisto	all_sections	SRR13343626_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343626.log
+FastQC	all_sections	SRR13343624_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343624_1_fastqc.zip
+FastQC	all_sections	SRR13343626_2	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343626_2_fastqc.zip
+FastQC	all_sections	SRR13343625_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343625_1_fastqc.zip
+FastQC	all_sections	SRR13343625_2	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343625_2_fastqc.zip
+FastQC	all_sections	SRR13343626_1	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343626_1_fastqc.zip
+FastQC	all_sections	SRR13343624_2	/Users/astrasb/Documents/RStudio/Bryant-DeMarco-Hallem-2021/Preprocessing/Data/S_stercoralis/Reads/FLM/SRR13343624_2_fastqc.zip
