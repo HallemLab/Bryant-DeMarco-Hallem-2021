@@ -13,6 +13,9 @@ output:
 # Introduction
 The goal of this file is to pre-process the *Strongyloides ratti* RNA-seq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495).
 
+## Update Notes  
+* Re-ran after updating Kallisto alignment to WBPS16 reference transcriptome on 11-06-21 (ASB). 
+
 ## Data Pre-Processing    
 A description of Kallisto alignment and data filtering/normalization steps can be found in `Sr_RNAseq_Data_Preprocessing.rmd`. 
 

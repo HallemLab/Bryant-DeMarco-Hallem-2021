@@ -1,6 +1,8 @@
 ---
 title: Pre-processing of *Strongyloides ratti* bulk RNA-seq via an alignment-free
   analysis pipeline
+author: "Astra S. Bryant, PhD"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
     df_print: paged
@@ -12,8 +14,11 @@ output:
 # Introduction
 The goal of this file is to pre-process the *Strongyloides ratti* RNA-seq dataset originally published by [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495). 
 
+## Update Notes  
+* Re-ran Kallisto alignment with WBPS16 reference transcriptome on 11-06-21 (ASB).   
+
 # Pre-processing Methods Overview 
-Raw reads are aligned to the *S. ratti* reference transcriptome (PRJEB125.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_ratti_prjeb125/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. stercoralis*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data could be saved as a digitial gene expression list if desired (not currently done).   
+Raw reads are aligned to the *S. ratti* reference transcriptome (PRJEB125.WBPS16.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_ratti_prjeb125/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. stercoralis*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: Raw count data could be saved as a digitial gene expression list if desired (not currently done).   
 
 Raw reads were quantified as counts per million using the EdgeR package, then filtered to remove transcripts with low counts (less than 1 count-per-million in at least 1 sample). A list of discarded genes and their expression values across life stages is saved. Non-discarded gene values are normalized using the trimmed mean of M-values method (TMM, [Robinson and Oshlack](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25) ) to permit between-samples comparisons. The mean-variance relationship was modeled using a precision weights approach [Law *et al* 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29). This dataset includes technical replicates; after voom modeling, data are condensed by replacing within-experiment technical replicates with their average, using the `limma:avearrays` function.  
 
@@ -29,66 +34,46 @@ knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 ## Kallisto read mapping
 This script checks the qualitiy of the fastq files and performs an alignment to the *Strongyloides ratti* transcriptome reference with Kallisto. To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer. For addditional instructions, see comments at head of script. 
 ```{bash KallistoMapping, eval=FALSE}
-# This script checks the qualitiy of the fastq files and performs an alignment 
-# to the Strongyloides ratti cDNA transcriptome reference with Kallisto.
-# To run this 'shell script' you will need to open your terminal and navigate 
-# to the directory where this script resides on your computer.
-# This should be the same directory where you fastq files and 
-# reference fasta file are found.
-# Change permissions on your computer so that you can run a shell script by 
-# typing: 'chmod u+x readMapping_sratti.sh' (without the quotes) 
-# at the terminal prompt 
-# Then type './readMapping_sratti.sh' (without the quotes) at the prompt.  
+# This script checks the qualitiy of the fastq files and performs an alignment to the Strongyloides ratti cDNA transcriptome reference with Kallisto.
+# To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer.
+# This should be the same directory where you fastq files and reference fasta file are found.
+# Change permissions on your computer so that you can run a shell script by typing: 'chmod u+x readMapping_sratti_WBPS16.sh' (without the quotes) at the terminal prompt 
+# Then type './readMapping_sratti_WBPS16.sh' (without the quotes) at the prompt.  
 # This will begin the process of running each line of code in the shell script.
 
 # first use fastqc to check the quality of the fastq files:
 fastqc *.gz -t 14
 
 # build index from the reference fasta file 
-kallisto index -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index 
-strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.fa
+kallisto index -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.fa
 
 # map reads to the indexed reference host transcriptome
 
 # Parasitic Females: Biological Replicates A-C, Technical replicate set 1
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299168 -t 14 ERR299168_1.fastq.gz ERR299168_2.fastq.gz&> ERR299168.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299169 -t 14 ERR299169_1.fastq.gz ERR299169_2.fastq.gz&> ERR299169.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299170 -t 14 ERR299170_1.fastq.gz ERR299170_2.fastq.gz&> ERR299170.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299168 -t 14 ERR299168_1.fastq.gz ERR299168_2.fastq.gz&> ERR299168.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299169 -t 14 ERR299169_1.fastq.gz ERR299169_2.fastq.gz&> ERR299169.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299170 -t 14 ERR299170_1.fastq.gz ERR299170_2.fastq.gz&> ERR299170.log
 
 # Free-living Females: Biological Replicates A-C, Technical replicate set 1
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299171 -t 14 ERR299171_1.fastq.gz ERR299171_2.fastq.gz&> ERR299171.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299172 -t 14 ERR299172_1.fastq.gz ERR299172_2.fastq.gz&> ERR299172.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299173 -t 14 ERR299173_1.fastq.gz ERR299173_2.fastq.gz&> ERR299173.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299171 -t 14 ERR299171_1.fastq.gz ERR299171_2.fastq.gz&> ERR299171.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299172 -t 14 ERR299172_1.fastq.gz ERR299172_2.fastq.gz&> ERR299172.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299173 -t 14 ERR299173_1.fastq.gz ERR299173_2.fastq.gz&> ERR299173.log
 
 # Parasitic Females: Biological Replicates A-C, Technical replicate set 2
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299174 -t 14 ERR299174_1.fastq.gz ERR299174_2.fastq.gz&> ERR299174.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299175 -t 14 ERR299175_1.fastq.gz ERR299175_2.fastq.gz&> ERR299175.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299176 -t 14 ERR299176_1.fastq.gz ERR299176_2.fastq.gz&> ERR299176.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299174 -t 14 ERR299174_1.fastq.gz ERR299174_2.fastq.gz&> ERR299174.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299175 -t 14 ERR299175_1.fastq.gz ERR299175_2.fastq.gz&> ERR299175.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299176 -t 14 ERR299176_1.fastq.gz ERR299176_2.fastq.gz&> ERR299176.log
 
 # Free-living Females: Biological Replicates A-C, Technical replicate set 2
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299177 -t 14 ERR299177_1.fastq.gz ERR299177_2.fastq.gz&> ERR299177.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299178 -t 14 ERR299178_1.fastq.gz ERR299178_2.fastq.gz&> ERR299178.log
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR299179 -t 14 ERR299179_1.fastq.gz ERR299179_2.fastq.gz&> ERR299179.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299177 -t 14 ERR299177_1.fastq.gz ERR299177_2.fastq.gz&> ERR299177.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299178 -t 14 ERR299178_1.fastq.gz ERR299178_2.fastq.gz&> ERR299178.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR299179 -t 14 ERR299179_1.fastq.gz ERR299179_2.fastq.gz&> ERR299179.log
 
 # Free-living Males
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR225783 -t 14 ERR225783_1.fastq.gz ERR225783_2.fastq.gz&> ERR225783.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR225783 -t 14 ERR225783_1.fastq.gz ERR225783_2.fastq.gz&> ERR225783.log
 
 # iL3s
-kallisto quant -i strongyloides_ratti.PRJEB125.WBPS14.mRNA_transcripts.index -o 
-ERR225784 -t 14 ERR225784_1.fastq.gz ERR225784_2.fastq.gz&> ERR225784.log
+kallisto quant -i strongyloides_ratti.PRJEB125.WBPS16.mRNA_transcripts.index -o ERR225784 -t 14 ERR225784_1.fastq.gz ERR225784_2.fastq.gz&> ERR225784.log
 
 # summarize fastqc and kallisto mapping results using MultiQC
 multiqc -d . 
@@ -681,9 +666,9 @@ Finally, we save data and annotations generated in code chunks above. We can sep
     iii) a matrix of discarded genes and their raw counts (`SrRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
     iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SrRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
     
-By default, this code chunk will not be evaluated. To save the files described above, change the chunk option from `eval = FALSE` to `eval = TRUE`. These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.    
+These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.    
     
-```{r saveBaseData, eval = FALSE}
+```{r saveBaseData, eval = TRUE}
 
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"
