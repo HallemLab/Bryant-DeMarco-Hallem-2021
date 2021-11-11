@@ -16,7 +16,8 @@ The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq 
 
 ## Update Notes  
 * RNA-seq expression data for *S. stercoralis* free-living males added on 11-03-21 (ASB).
-* Re-ran Kallisto alignment with WBPS16 reference transcriptome on 11-06-21 (ASB).   
+* Re-ran Kallisto alignment with WBPS16 reference transcriptome on 11-06-21 (ASB).
+* Force calls to BioMart to not use caching, and import Kallisto reads every time. This may disrupt preprocessing pipeline if the reference transcriptome version does not match the current version on ParaSite (11-11-21, ASB).   
 
 # Pre-processing Methods Overview  
 Kallisto and custom R scripts were used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS16.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 04 Nov 2021). Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. ratti*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is be saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: raw count data could be saved as a digitial gene expression list if desired (not currently done).  
@@ -102,8 +103,8 @@ echo "Finished"
 ```
 
 ## Import Kallisto reads into R  
-Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
-```{r txImport, eval=FALSE}
+Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk generates and saves an object containing the transcripts per million data. In subsequent chunks, that file is loaded, and analysis progresses.
+```{r txImport, eval=TRUE}
 # load packages ----
 suppressPackageStartupMessages({
   library(tidyverse) 
@@ -130,6 +131,7 @@ Tx.Ss <- getBM(attributes=c('wbps_transcript_id',
                               host="https://parasite.wormbase.org", 
                               port = 443),
                filters = c('species_id_1010'),
+               useCache = FALSE,
                value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #we need to rename the columns retreived from biomart
@@ -197,6 +199,7 @@ Annt.temp.1 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -218,6 +221,7 @@ Annt.temp.2 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -239,6 +243,7 @@ Annt.temp.3 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -263,6 +268,7 @@ Annt.temp.4 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
