@@ -17,12 +17,13 @@ output:
 A full inforuction to the project and a description of Kallisto alignment and data filtering/normalization steps can be found in `Ss_RNAseq_Data_Preprocessing.rmd`. 
 
 ## Data Analysis   
-Principal component analysis applied to filtered and TMM-normalized expression data identified two developmental clusters that account for 34.5% and 26.3% of expression variability between *S. stercoralis* developmental stages. 
+Principal component analysis was applied to filtered and TMM-normalized expression data to identify developmental clusters that account for expression variability between *S. stercoralis* life stages stages. 
 
 The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605792/), [Phipson *et al* 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5373812/)) is used to conduct pairwise differential gene expression analyses between life stages. An example pairwise comparisons between two life stages is displayed as a volcano plot and interactive DataTable. 
 
 ## Update Notes
-This code was updated on approximately 11-3-21 by A.S.B., adding *S. stercoralis* free-living male RNA-seq expression data.
+* This code was updated on 11-03-21 to add *S. stercoralis* free-living male RNA-seq expression data (ASB).
+* Re-ran this plot on 11-06-21 after reprocessing Kallisto alignment with WBPS16 transcriptome (ASB)
 
 # Code
 All code is echoed under descriptive headers; code chunks are hidden from view by default. Users may show hidden R code by clicking the Show buttons. In addition, all code chunks are collated at the end of the document in an Appendix.  

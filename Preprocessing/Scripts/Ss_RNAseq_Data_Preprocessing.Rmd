@@ -14,11 +14,13 @@ output:
 # Introduction
 The goal of this file is to pre-process the *Strongyloides stercoralis* RNA-seq datasets originally published by [Stolzfus *et al* 2012](https://journals.plos.org/plosntds/article?id=10.1371/journal.pntd.0001854) and [Gonzalez Akimori *et al* 2021](https://www.nature.com/articles/s41598-021-87478-3). 
 
-## Update Notes
-RNA-seq expression data for *S. stercoralis* free-living males added by A.S.B. on/near 11-3-21.
+## Update Notes  
+* RNA-seq expression data for *S. stercoralis* free-living males added on 11-03-21 (ASB).
+* Re-ran Kallisto alignment with WBPS16 reference transcriptome on 11-06-21 (ASB).
+* Force calls to BioMart to not use caching, and import Kallisto reads every time. This may disrupt preprocessing pipeline if the reference transcriptome version does not match the current version on ParaSite (11-11-21, ASB).   
 
 # Pre-processing Methods Overview  
-Kallisto and custom R scripts were used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 16 June 2020). Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. ratti*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is be saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: raw count data could be saved as a digitial gene expression list if desired (not currently done).  
+Kallisto and custom R scripts were used to perform ultra-fast read mapping of raw reads to the *S. stercoalis* reference transcriptome (PRJEB528.WBPS16.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_stercoralis_prjeb528/Info/Index/) on 04 Nov 2021). Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT. Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. ratti*), and both members of the out-group (*S. papillosus* and *S. venezuelensis*). Annotation information is be saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Note: raw count data could be saved as a digitial gene expression list if desired (not currently done).  
 
 Raw reads were quantified as counts per million using the EdgeR package, then filtered to remove transcripts with low counts (less than 1 count-per-million in at least 3 samples). A list of discarded genes and their expression values across life stages is saved. Non-discarded gene values are normalized using the trimmed mean of M-values method (TMM, [Robinson and Oshlack](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25) ) to permit between-samples comparisons. The mean-variance relationship was modeled using a precision weights approach [Law *et al* 2014](https://genomebiology.biomedcentral.com/articles/10.1186/gb-2014-15-2-r29).  
 
@@ -35,126 +37,74 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 This shell script checks the qualitiy of the fastq files and performs an alignment to the *Strongyloides stercoralis* transcriptome reference with Kallisto. To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer. For addditional instructions, see comments at head of script. 
 Note: Since FLM RNA-seq data was added after initial release of the browser, Kallisto alignment was performed separately for these samples.
 ```{bash KallistoMapping, eval=FALSE}
-# This script checks the qualitiy of the fastq files and performs 
-# an alignment to the S. stercoralis transcriptome reference with Kallisto.
-# To run this 'shell script' you will need to open your terminal and 
-# navigate to the directory where this script resides on your computer.
-# This should be the same directory where you fastq files and reference 
-# fasta file are found.
-# Change permissions on your computer so that you can run a 
-# shell script by typing: 'chmod u+x readMapping.sh' (without the quotes) 
-# at the terminal prompt 
-# Then type './readMapping.sh' (without the quotes) at the prompt.  
+# This script checks the qualitiy of the fastq files and performs an alignment to the Strongyloides stercoralis cDNA transcriptome reference with Kallisto.
+# To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer.
+# This should be the same directory where you fastq files and reference fasta file are found.
+# Change permissions on your computer so that you can run a shell script by typing: 'chmod u+x readMapping_Ss_WBPS16.sh' (without the quotes) at the terminal prompt 
+# Then type './readMapping_Ss_WBPS16.sh' (without the quotes) at the prompt.  
 # This will begin the process of running each line of code in the shell script.
 
 # first use fastqc to check the quality of our fastq files:
 fastqc *.gz -t 14
 
-# build an index from the reference fasta file 
-kallisto index -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index
-strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.fa
+# next, we want to build an index from our reference fasta file 
+# I got my reference Strongyloides sterocralis transcripts from WormBase Parasite
+kallisto index -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.fa
 
-# map reads to the indexed reference host transcriptome
+# now map reads to the indexed reference host transcriptome
+# use as many 'threads' as your machine will allow in order to speed up the read mapping process.
+# note that we're also including the '&>' at the end of each line
+# this takes the information that would've been printed to our terminal, and outputs this in a log file that is saved in /data/course_data
 
 # Free-Living Females
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146941 -t 14 ERR146941_1.fastq.gz ERR146941_2.fastq.gz&> ERR146941.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146942 -t 14 ERR146942_1.fastq.gz ERR146942_2.fastq.gz&> ERR146942.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146943 -t 14 ERR146943_1.fastq.gz ERR146943_2.fastq.gz&> ERR146943.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146941 -t 14 ERR146941_1.fastq.gz ERR146941_2.fastq.gz&> ERR146941.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146942 -t 14 ERR146942_1.fastq.gz ERR146942_2.fastq.gz&> ERR146942.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146943 -t 14 ERR146943_1.fastq.gz ERR146943_2.fastq.gz&> ERR146943.log
 
 # L3i+ (Activated iL3s)
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146944 -t 14 ERR146944_1.fastq.gz ERR146944_2.fastq.gz&> ERR146944.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146945 -t 14 ERR146945_1.fastq.gz ERR146945_2.fastq.gz&> ERR146945.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146946 -t 14 ERR146946_1.fastq.gz ERR146946_2.fastq.gz&> ERR146946.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146944 -t 14 ERR146944_1.fastq.gz ERR146944_2.fastq.gz&> ERR146944.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146945 -t 14 ERR146945_1.fastq.gz ERR146945_2.fastq.gz&> ERR146945.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146946 -t 14 ERR146946_1.fastq.gz ERR146946_2.fastq.gz&> ERR146946.log
 
 # L3i
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146947 -t 14 ERR146947_1.fastq.gz ERR146947_2.fastq.gz&> ERR146947.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146948 -t 14 ERR146948_1.fastq.gz ERR146948_2.fastq.gz&> ERR146948.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146949 -t 14 ERR146949_1.fastq.gz ERR146949_2.fastq.gz&> ERR146949.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146947 -t 14 ERR146947_1.fastq.gz ERR146947_2.fastq.gz&> ERR146947.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146948 -t 14 ERR146948_1.fastq.gz ERR146948_2.fastq.gz&> ERR146948.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146949 -t 14 ERR146949_1.fastq.gz ERR146949_2.fastq.gz&> ERR146949.log
 
 # Post-Free-Living L1s
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146950 -t 14 ERR146950_1.fastq.gz ERR146950_2.fastq.gz&> ERR146950.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146951 -t 14 ERR146951_1.fastq.gz ERR146951_2.fastq.gz&> ERR146951.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146952 -t 14 ERR146952_1.fastq.gz ERR146952_2.fastq.gz&> ERR146952.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146950 -t 14 ERR146950_1.fastq.gz ERR146950_2.fastq.gz&> ERR146950.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146951 -t 14 ERR146951_1.fastq.gz ERR146951_2.fastq.gz&> ERR146951.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146952 -t 14 ERR146952_1.fastq.gz ERR146952_2.fastq.gz&> ERR146952.log
 
 # Post-Parasitic L1s
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146953 -t 14 ERR146953_1.fastq.gz ERR146953_2.fastq.gz&> ERR146953.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146954 -t 14 ERR146954_1.fastq.gz ERR146954_2.fastq.gz&> ERR146954.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146955 -t 14 ERR146955_1.fastq.gz ERR146955_2.fastq.gz&> ERR146955.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146953 -t 14 ERR146953_1.fastq.gz ERR146953_2.fastq.gz&> ERR146953.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146954 -t 14 ERR146954_1.fastq.gz ERR146954_2.fastq.gz&> ERR146954.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146955 -t 14 ERR146955_1.fastq.gz ERR146955_2.fastq.gz&> ERR146955.log
 
-# Post-Parasitic L3s
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146956 -t 14 ERR146956_1.fastq.gz ERR146956_2.fastq.gz&> ERR146956.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146957 -t 14 ERR146957_1.fastq.gz ERR146957_2.fastq.gz&> ERR146957.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146958 -t 14 ERR146958_1.fastq.gz ERR146958_2.fastq.gz&> ERR146958.log
+# Post-Parasitic L1s
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146956 -t 14 ERR146956_1.fastq.gz ERR146956_2.fastq.gz&> ERR146956.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146957 -t 14 ERR146957_1.fastq.gz ERR146957_2.fastq.gz&> ERR146957.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146958 -t 14 ERR146958_1.fastq.gz ERR146958_2.fastq.gz&> ERR146958.log
 
 # Parasitic Females
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146959 -t 14 ERR146959_1.fastq.gz ERR146959_2.fastq.gz&> ERR146959.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146960 -t 14 ERR146960_1.fastq.gz ERR146960_2.fastq.gz&> ERR146960.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-ERR146961 -t 14 ERR146961_1.fastq.gz ERR146961_2.fastq.gz&> ERR146961.log
-
-# summarize fastqc and kallisto mapping results using MultiQC
-multiqc -d . 
-
-echo "Finished"
-```
-
-```{bash KallistoMappingFLM, eval=FALSE}
-# This script checks the qualitiy of the fastq files for free-living males and performs 
-# an alignment to the S. stercoralis transcriptome reference with Kallisto.
-# To run this 'shell script' you will need to open your terminal and 
-# navigate to the directory where this script resides on your computer.
-# This should be the same directory where you fastq files and reference 
-# fasta file are found.
-
-# Change permissions on your computer so that you can run a 
-# shell script by typing: 'chmod u+x readMapping_FLM.sh' (without the quotes) 
-# at the terminal prompt 
-# Then type './readMapping_FLM.sh' (without the quotes) at the prompt.  
-# This will begin the process of running each line of code in the shell script.
-
-# This script adds Kallisto alignment of free-living male samples, and thus assumes
-# users have already constructed a Kallisto index file previously. 
-
-# first use fastqc to check the quality of our fastq files:
-fastqc *.gz -t 14
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146959 -t 14 ERR146959_1.fastq.gz ERR146959_2.fastq.gz&> ERR146959.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146960 -t 14 ERR146960_1.fastq.gz ERR146960_2.fastq.gz&> ERR146960.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o ERR146961 -t 14 ERR146961_1.fastq.gz ERR146961_2.fastq.gz&> ERR146961.log
 
 # Free-living Males
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-SRR13343624 -t 14 SRR13343624_1.fastq.gz SRR13343624_2.fastq.gz&> SRR13343624.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-SRR13343625 -t 14 SRR13343625_1.fastq.gz SRR13343625_2.fastq.gz&> SRR13343624.log
-kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS14.mRNA_transcripts.index -o 
-SRR13343626 -t 14 SRR13343626_1.fastq.gz SRR13343626_2.fastq.gz&> SRR13343624.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o SRR13343624 -t 14 SRR13343624_1.fastq.gz SRR13343624_2.fastq.gz&> SRR13343624.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o SRR13343625 -t 14 SRR13343625_1.fastq.gz SRR13343625_2.fastq.gz&> SRR13343625.log
+kallisto quant -i strongyloides_stercoralis.PRJEB528.WBPS16.mRNA_transcripts.index -o SRR13343626 -t 14 SRR13343626_1.fastq.gz SRR13343626_2.fastq.gz&> SRR13343626.log
 
-# summarize fastqc and kallisto mapping results using MultiQC
+# summarize fastqc and kallisto mapping results in a single summary html using MultiQC
 multiqc -d . 
 
 echo "Finished"
 ```
 
 ## Import Kallisto reads into R  
-Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
-```{r txImport, eval=FALSE}
+Import Kallisto transcript counts into R using Tximport. Counts are generated from abundance files using the `lengthScaledTPM` option. This code chunk generates and saves an object containing the transcripts per million data. In subsequent chunks, that file is loaded, and analysis progresses.
+```{r txImport, eval=TRUE}
 # load packages ----
 suppressPackageStartupMessages({
   library(tidyverse) 
@@ -181,6 +131,7 @@ Tx.Ss <- getBM(attributes=c('wbps_transcript_id',
                               host="https://parasite.wormbase.org", 
                               port = 443),
                filters = c('species_id_1010'),
+               useCache = FALSE,
                value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #we need to rename the columns retreived from biomart
@@ -248,6 +199,7 @@ Annt.temp.1 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -269,6 +221,7 @@ Annt.temp.2 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -290,6 +243,7 @@ Annt.temp.3 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -314,6 +268,7 @@ Annt.temp.4 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                     useCache = FALSE,
                      value = list('ststerprjeb528')) %>%
   as_tibble() %>%
   #rename columns 
@@ -722,9 +677,9 @@ Finally, we save data and annotations generated in code chunks above. We can sep
     iii) a matrix of discarded genes and their raw counts (`SsRNAseq_discardedGene_counts.csv`) - this data is downloadable from within the Browser App
     iv) a matrix of variance-stabilized gene expression data, extracted from the vDGEList (`SsRNAseq_log2cpm_filtered_norm_voom.csv`) - this data is downloadable from within the Browser App
     
-By default, this code chunk will not be evaluated. To save the files described above, change the chunk option from `eval = FALSE` to `eval = TRUE`. These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.    
+These files are saved in an Outputs folder; in order to make them accessible to a local version of the Shiny browser they need to be moved to appropriate subfolders within the App folder - the www sub folder (for .csv files) or the Data subfolder (for R objects). Stable copies are already located within those folders and do not need to be replaced unless the pre-processing steps change.    
   
-```{r saveBaseData, eval = FALSE}
+```{r saveBaseData, eval = TRUE}
 
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"

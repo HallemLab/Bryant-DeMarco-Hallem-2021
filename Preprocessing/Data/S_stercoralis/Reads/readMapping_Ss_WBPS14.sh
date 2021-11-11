@@ -1,8 +1,8 @@
 # This script checks the qualitiy of the fastq files and performs an alignment to the Strongyloides stercoralis cDNA transcriptome reference with Kallisto.
 # To run this 'shell script' you will need to open your terminal and navigate to the directory where this script resides on your computer.
 # This should be the same directory where you fastq files and reference fasta file are found.
-# Change permissions on your computer so that you can run a shell script by typing: 'chmod u+x readMapping.sh' (without the quotes) at the terminal prompt 
-# Then type './readMapping.sh' (without the quotes) at the prompt.  
+# Change permissions on your computer so that you can run a shell script by typing: 'chmod u+x readMapping_Ss_WBPS14.sh' (without the quotes) at the terminal prompt 
+# Then type './readMapping_Ss_WBPS14.sh' (without the quotes) at the prompt.  
 # This will begin the process of running each line of code in the shell script.
 
 # first use fastqc to check the quality of our fastq files:

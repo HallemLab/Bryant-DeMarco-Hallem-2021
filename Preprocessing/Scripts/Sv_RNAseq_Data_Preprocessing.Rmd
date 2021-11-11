@@ -1,6 +1,8 @@
 ---
 title: Pre-processing of *Strongyloides venezuelensis* bulk RNA-seq via an alignment-free
   analysis pipeline
+author: "Astra S. Bryant, PhD"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   pdf_document:
     df_print: paged
@@ -11,6 +13,9 @@ output:
 
 # Introduction
 The goal of this file is to pre-process the *Strongyloides venezuelensis* RNA-seq dataset originally published by [Hunt *et al* 2018](https://www.nature.com/articles/s41598-018-23514-z). 
+
+## Update Notes  
+* Force calls to BioMart to not use caching, and import Kallisto reads every time. This may disrupt preprocessing pipeline if the reference transcriptome version does not match the current version on ParaSite (11-11-21, ASB).   
 
 # Pre-processing Methods Overview 
 Raw reads are aligned to the *S. venezuelensis* reference transcriptome (PRJEB530.WBPS14.mRNA_transcripts, downloaded from [WormBase Parasite](https://parasite.wormbase.org/Strongyloides_venezuelensis_PRJEB530/Info/Index) on 17 August 2020), using Kallisto. Kallisto alignments are imported into the R environment and annotated with information imported via the Wormbase ParaSite BioMaRT.Annotation information includes: *C. elegans* homologs/percent homology, UniProtKB number, Interpro terms, GO terms, and general Description information. [Hunt *et al* 2016](https://www.nature.com/articles/ng.3495) establishes two distinct subclades from the four sequenced *Strongyloides* species: *S. venezuelensis-S. papillosus* and *S. ratti-S. stercoralis*. Thus, we also include annotation information for the appropriate in-group (here, *S. papillosus*), and both members of the out-group (*S. stercoralis* and *S. ratti*). Annotation information is saved as an R object that is passed to a Shiny Web App for downstream browsing and on-demand analysis. Raw count data is saved as an R object.   
@@ -155,7 +160,7 @@ multiqc -d .
 ```
 
 ## Import Kallisto reads into R  
-Imports study design file and Kallisto reads into the R environment. At this stage, we separate the two experimental batches, such that differences in library size and transcript length between the two batches are not corrected when calculating counts from abudnance (we use the lengthScaledTPM option in `tximport`). This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
+Imports study design file and Kallisto reads into the R environment. At this stage, we separate the two experimental batches, such that differences in library size and transcript length between the two batches are not corrected when calculating counts from abudnance (we use the lengthScaledTPM option in `tximport`). This code chunk generates and saves an object containing the transcripts per million data. In subsequent chunks, that file is loaded, and analysis progresses.
 ```{r txImport}
 # load packages ----
 suppressPackageStartupMessages({
@@ -182,6 +187,7 @@ Tx.Sv <- getBM(attributes=c('wbps_transcript_id',
                               dataset = "wbps_gene", 
                               host="https://parasite.wormbase.org", 
                               port = 443),
+                useCache = FALSE,
                filters = c('species_id_1010'),
                value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -247,6 +253,7 @@ Annt.temp.1 <- getBM(attributes=c('wbps_gene_id',
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
                      filters = c('species_id_1010'),
+                      useCache = FALSE,
                      value = list('stveneprjeb530')) %>%
   as_tibble() %>%
   #rename columns 
@@ -267,6 +274,7 @@ mart = useMart(biomart="parasite_mart",
                dataset = "wbps_gene", 
                host="https://parasite.wormbase.org", 
                port = 443),
+ useCache = FALSE,
 filters = c('species_id_1010'),
 value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -288,6 +296,7 @@ mart = useMart(biomart="parasite_mart",
                dataset = "wbps_gene", 
                host="https://parasite.wormbase.org", 
                port = 443),
+ useCache = FALSE,
 filters = c('species_id_1010'),
 value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -312,6 +321,7 @@ Annt.temp.4 <- getBM(attributes=c('wbps_gene_id',
                                     dataset = "wbps_gene", 
                                     host="https://parasite.wormbase.org", 
                                     port = 443),
+                      useCache = FALSE,
                      filters = c('species_id_1010'),
                      value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -765,8 +775,8 @@ save(SvRNAseq.preprocessed.data,
 
 # Appendix I: Replicate above chunks for Batch iL3_extended  
 ## Import Kallisto Reads
-Collecting code for reading in Kallisto reads through Generating a DGEList. Gene annotations are not re-imported. This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).   
-```{r iL3_extended.preprocessing.1, eval = FALSE}
+Collecting code for reading in Kallisto reads through generating a DGEList. Gene annotations are not re-imported. This code chunk generates and saves an object containing the transcripts per million data. In subsequent chunks, that file is loaded, and analysis progresses. 
+```{r iL3_extended.preprocessing.1}
 targets <- read_tsv("../Data/S_venezuelensis/Study_Design/Svene_Group_iL3_extended_study_design.txt",
                     na = c("", "NA", "na"))
 path <- file.path("../Data/S_venezuelensis/Reads",targets$sample, "abundance.tsv")
@@ -777,6 +787,7 @@ Tx.Sv <- getBM(attributes=c('wbps_transcript_id',
                               dataset = "wbps_gene", 
                               host="https://parasite.wormbase.org", 
                               port = 443),
+                useCache = FALSE,
                filters = c('species_id_1010'),
                value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -1011,7 +1022,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(
 
 ## Save Data  
 This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNA-seq browser. Thus, code for generating elements necessary for the browser are commented out.      
-```{r iL3.extended.preprocessing.8, eval = FALSE}
+```{r iL3.extended.preprocessing.8}
 
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"
@@ -1051,8 +1062,8 @@ save(v.DEGList.filtered.norm,
 Saving critical elements needed for demonstrating the existence of substantial batch effects during downstream analyses.  
 
 ## Import Kallisto Reads  
-This code chunk is not evaluated each time, instead it was run once and an object containing the transcripts per million data is saved. In subsequent chunks, that file is loaded, and analysis progresses. The point of this is so that folks attempting to rerun this analysis do not need to have abundance files loaded on their local machines (and we do not have to upload abundance files to github).  
-```{r allSamples.processing.1, eval = FALSE}
+This code chunk generates and saves an object containing the transcripts per million data. In subsequent chunks, that file is loaded, and analysis progresses. 
+```{r allSamples.processing.1}
 ## Import Kallisto reads into R ----
 suppressPackageStartupMessages({
   library(tidyverse) 
@@ -1079,6 +1090,7 @@ Tx.Sv <- getBM(attributes=c('wbps_transcript_id',
                               dataset = "wbps_gene", 
                               host="https://parasite.wormbase.org", 
                               port = 443),
+                useCache = FALSE,
                filters = c('species_id_1010'),
                value = list('stveneprjeb530')) %>%
   as_tibble() %>%
@@ -1265,7 +1277,7 @@ colnames(v.DEGList.filtered.norm$E) <- paste(
 
 ## Save Data and Annotations  
 This code chunk saves data, generated in Appendix II. This code chunk saves data generated in Appendix I. However, it only save data required for downstream offline analyses, as this data is not included in the *Strongyloides* RNA-seq browser. Thus, code for generating elements necessary for the browser are commented out.   
-```{r allSamples.processing.3, eval = FALSE}
+```{r allSamples.processing.3}
 
 # Check for presence of output folder, generate if it doesn't exist
 output.path <- "../Outputs"
