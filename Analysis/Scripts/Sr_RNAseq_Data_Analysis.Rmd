@@ -1,5 +1,7 @@
 ---
 title: Offline Data Analysis of *Strongyloides ratti* bulk RNA-seq data
+author: "Astra S. Bryant, PhD"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   html_document:
     df_print: paged
