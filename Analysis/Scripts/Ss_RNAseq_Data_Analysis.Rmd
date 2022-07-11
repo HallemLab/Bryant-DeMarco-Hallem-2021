@@ -24,6 +24,7 @@ The limma package ( [Ritchie *et al* 2015](https://pubmed.ncbi.nlm.nih.gov/25605
 ## Update Notes
 * This code was updated on 11-03-21 to add *S. stercoralis* free-living male RNA-seq expression data (ASB).
 * Re-ran this plot on 11-06-21 after reprocessing Kallisto alignment with WBPS16 transcriptome (ASB)
+* Re-ran this plot on 07-11-22 after reprocessing Kallisto alignment with WBPS17 transcriptome (ASB)
 
 # Code
 All code is echoed under descriptive headers; code chunks are hidden from view by default. Users may show hidden R code by clicking the Show buttons. In addition, all code chunks are collated at the end of the document in an Appendix.  
@@ -981,7 +982,8 @@ suppressPackageStartupMessages({
   library(openxlsx)
   library(gplots) #for heatmaps
   library(DT) #interactive and searchable tables of our GSEA results
-  library(clusterProfiler) # provides a suite of tools for functional enrichment analysis
+  library(patchwork)
+  library(clusterProfiler) # provides a suite of tools for functional enrichment analysis. 
 })
 # Pick a pairwise comparison
 yy <- 1
